@@ -1,0 +1,19 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Intercepted API Schema",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/events": {
+      "post": {
+        "summary": "Intercepted Call",
+        "responses": {
+          "200": {
+            "description": "Captured response"
+          }
+        }
+      }
+    }
+  }
+}

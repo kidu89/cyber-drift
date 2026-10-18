@@ -1,0 +1,861 @@
+<!doctype html>
+<html lang="en">
+<head><script>(function(){
+'use strict';
+if(window.mindblown&&window.mindblown.sound)return;
+var on=true;
+function stored(){try{var m=/(?:^|;\s*)mb_sound=([^;]*)/.exec(document.cookie||'');return !(m&&m[1]==='off');}catch(e){return true;}}
+try{on=stored();}catch(e){}
+
+// <audio> and <video>. Every element is remembered: half of them are in no
+// document. See the notes above this template.
+var media=null;
+var seen=[];
+try{
+  var proto=window.HTMLMediaElement&&HTMLMediaElement.prototype;
+  media=proto&&Object.getOwnPropertyDescriptor(proto,'muted');
+  if(media&&media.get&&media.set){
+    Object.defineProperty(proto,'muted',{configurable:true,enumerable:media.enumerable,
+      get:function(){return media.get.call(this);},
+      set:function(v){
+        if(on){media.set.call(this,v);return;}
+        note(this);this.__mbWant=!!v;this.__mbHeld=true;media.set.call(this,true);
+      }});
+    var play=proto.play;
+    if(play){proto.play=function(){note(this);hold(this);return play.apply(this,arguments);};}
+  }else{media=null;}
+}catch(e){media=null;}
+function note(el){
+  try{
+    if(el.__mbSeen)return;
+    el.__mbSeen=true;
+    seen.push(typeof WeakRef==='function'?new WeakRef(el):{deref:function(){return el;}});
+  }catch(e){}
+}
+function hold(el){
+  if(!media||!el)return;
+  try{
+    if(on){if(el.__mbHeld){el.__mbHeld=false;media.set.call(el,!!el.__mbWant);}}
+    else{if(!el.__mbHeld){el.__mbWant=media.get.call(el);el.__mbHeld=true;}media.set.call(el,true);}
+  }catch(e){}
+}
+function sweep(){
+  try{var all=document.querySelectorAll('audio,video');for(var i=0;i<all.length;i++){note(all[i]);hold(all[i]);}}catch(e){}
+  for(var j=seen.length-1;j>=0;j--){
+    var el=null;
+    try{el=seen[j].deref();}catch(e){}
+    if(el)hold(el);else seen.splice(j,1);
+  }
+}
+// <audio autoplay> never calls play().
+try{document.addEventListener('play',function(e){note(e.target);hold(e.target);},true);}catch(e){}
+
+// Web Audio: a gain node where the destination was, connected to the real one.
+var gains=[];
+try{
+  var base=window.BaseAudioContext||window.AudioContext||window.webkitAudioContext;
+  var proto2=base&&base.prototype;
+  var dest=proto2&&Object.getOwnPropertyDescriptor(proto2,'destination');
+  if(dest&&dest.get){
+    Object.defineProperty(proto2,'destination',{configurable:true,enumerable:dest.enumerable,
+      get:function(){
+        var real=dest.get.call(this);
+        try{
+          if(window.OfflineAudioContext&&this instanceof OfflineAudioContext)return real;
+          if(!this.createGain)return real;
+          var g=this.__mbGain;
+          if(!g){
+            g=this.createGain();
+            g.gain.value=on?1:0;
+            g.connect(real);
+            try{Object.defineProperty(g,'maxChannelCount',{value:real.maxChannelCount});}catch(e){}
+            try{Object.defineProperty(this,'__mbGain',{value:g});}catch(e){this.__mbGain=g;}
+            gains.push(g);
+          }
+          return g;
+        }catch(e){return real;}
+      }});
+  }
+}catch(e){}
+function ramp(g,v){
+  try{
+    var t=g.context.currentTime;
+    g.gain.cancelScheduledValues(t);
+    g.gain.setValueAtTime(g.gain.value,t);
+    g.gain.linearRampToValueAtTime(v,t+0.02);
+  }catch(e){try{g.gain.value=v;}catch(e2){}}
+}
+
+// Spoken words are a sound too.
+try{
+  var synth=window.speechSynthesis;
+  if(synth&&synth.speak){
+    var speak=synth.speak;
+    synth.speak=function(){if(!on)return;return speak.apply(synth,arguments);};
+  }
+}catch(e){}
+
+// The zone: everything after the first label. An address is not a name.
+function zone(){
+  try{
+    var host=location.hostname,at=host.indexOf('.');
+    if(at<0)return '';
+    var rest=host.slice(at+1);
+    if(rest.indexOf('.')<0)return '';
+    var last=rest.slice(rest.lastIndexOf('.')+1);
+    if(!/^[a-z]{2,}$/.test(last))return '';
+    return rest;
+  }catch(e){return '';}
+}
+// Written twice: at once here, and by a response, which Safari does not cap.
+function keep(){
+  var value=on?'on':'off';
+  try{
+    var domain=zone();
+    document.cookie='mb_sound='+value+';path=/;max-age=31536000;samesite=lax'+
+      (location.protocol==='https:'?';secure':'')+(domain?';domain='+domain:'');
+  }catch(e){}
+  try{fetch('/__mb/sound?on='+(on?'1':'0'),{method:'POST',credentials:'same-origin',keepalive:true}).catch(function(){});}catch(e){}
+}
+// The other document: the shell holds the panel, the frame holds the page.
+// Nobody re-broadcasts and an unchanged value returns early, so no loop.
+function tell(){
+  var note={type:'mb-sound',on:on};
+  try{if(window.parent&&window.parent!==window)window.parent.postMessage(note,location.origin);}catch(e){}
+  try{for(var i=0;i<window.frames.length;i++){try{window.frames[i].postMessage(note,location.origin);}catch(e2){}}}catch(e){}
+}
+function set(next,spread){
+  next=!!next;
+  if(next===on)return on;
+  on=next;
+  for(var i=0;i<gains.length;i++)ramp(gains[i],on?1:0);
+  sweep();
+  if(!on){try{window.speechSynthesis&&window.speechSynthesis.cancel();}catch(e){}}
+  if(spread){keep();tell();}
+  try{window.dispatchEvent(new CustomEvent('mindblown:sound',{detail:{on:on}}));}catch(e){}
+  return on;
+}
+// OURS IS THE ZONE, NOT THE ORIGIN.
+//
+// This used to answer only its own origin, which was right while the only other
+// document was the shell around it -- the shell and the game are the same host.
+// The APP frames a game too, from mindblown.ai, and it now carries the sound
+// switch in the game's own rail: a control that belongs to whoever is holding
+// the phone, on the one surface where they are actually holding it.
+//
+// The zone is already computed above for the cookie, and it is the same trust
+// boundary: everything under mindblown.ai is ours, and a sibling that could
+// send this can already read the cookie it writes. What it may set is one
+// boolean about audio.
+//
+// SPREAD:TRUE for a message, unlike the shell's own broadcast below. The app is
+// telling us what a PERSON chose, so it is written down and passed on -- the
+// next game they open starts muted too, which is the whole point of a switch
+// that belongs to them.
+function ours(origin){
+  try{
+    if(origin===location.origin)return true;
+    var z=zone();
+    if(!z)return false;
+    var host=new URL(origin).hostname;
+    return host===z||host.slice(-(z.length+1))==='.'+z;
+  }catch(e){return false;}
+}
+try{
+  window.addEventListener('message',function(e){
+    try{
+      if(!ours(e.origin))return;
+      var d=e.data;
+      if(d&&d.type==='mb-sound'&&typeof d.on==='boolean')set(d.on,e.origin!==location.origin);
+    }catch(e2){}
+  });
+  // A page restored from the back-forward cache reads the setting again.
+  window.addEventListener('pageshow',function(){try{set(stored(),false);}catch(e){}});
+}catch(e){}
+
+// The page's half of the switch: window.mindblown.sound, defined before the
+// page's first line. See the notes above this template for what it is for.
+var api={
+  get on(){return on;},
+  set:function(next){return set(next,true);},
+  toggle:function(){return set(!on,true);},
+  onchange:function(fn){
+    var hear=function(e){try{fn(e.detail.on);}catch(err){}};
+    try{window.addEventListener('mindblown:sound',hear);}catch(e){}
+    return function(){try{window.removeEventListener('mindblown:sound',hear);}catch(e){}};
+  }
+};
+// MERGED, NEVER ASSIGNED: pod.js puts the game id on this same object.
+try{
+  window.mindblown=window.mindblown||{};
+  window.mindblown.sound=api;
+}catch(e){}
+if(!on)sweep();
+})();</script><script>(function(){
+'use strict';
+var mb;
+try{mb=window.mindblown=window.mindblown||{};}catch(e){return;}
+if(mb.load||mb.__queuedSaves)return;
+var queued=[];
+function later(op){return function(){var args=arguments;return new Promise(function(resolve,reject){queued.push([op,args,resolve,reject]);});};}
+mb.load=later('load');mb.save=later('save');mb.remove=later('remove');
+mb.__queuedSaves=queued;
+setTimeout(function(){
+if(mb.__queuedSaves!==queued)return;
+function refuse(){var e=new Error('the mindblown script did not load, so saves are unavailable');e.reason='STORAGE_UNAVAILABLE';e.status=503;return e;}
+delete mb.__queuedSaves;
+mb.load=mb.save=mb.remove=function(){return Promise.reject(refuse());};
+queued.splice(0).forEach(function(c){c[3](refuse());});
+},20000);
+})();</script><script>(function(){var m;try{m=window.mindblown=window.mindblown||{};}catch(e){return;}
+if(!m.event)m.event=function(n,p){if(!m.events||!m.events.push)m.events=[];m.events.push(p===undefined?[n]:[n,p]);};
+if(!m.run){var s=function(n){return function(p){m.event(n,p);};};m.run={start:s('game_start'),pause:s('game_pause'),resume:s('game_resume'),end:s('game_end')};}
+if(!m.measure)m.measure=function(l){if(!m.__queuedMeasure)m.__queuedMeasure=l;};})();</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Cyber Drift">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0a0e14">
+<link rel="manifest" href="site_assets/__mb/app/manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/cyber_drift_loading.webp">
+<title>Cyber Drift: SF Overdrive</title>
+<meta name="description" content="Cyber Drift: SF Overdrive — High-octane autonomous street racing, neon drift events, and intense police pursuits across a hyper-realistic 3D San Francisco.">
+<link rel="preload" as="image" href="assets/cyber_drift_loading.webp" type="image/webp" fetchpriority="high">
+<link rel="preload" as="image" href="assets/teleop_title.webp" media="(aspect-ratio > 8/5)" type="image/webp">
+<link rel="stylesheet" href="./style.css">
+<script src="./boot.js" data-gz data-variant="taxi"></script>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cyber Drift">
+<meta property="og:title" content="Cyber Drift: SF Overdrive">
+<meta property="og:description" content="High-octane autonomous street racing, neon drift events, and intense police pursuits across a hyper-realistic 3D San Francisco.">
+<meta property="og:image" content="assets/cyber_drift_loading.webp">
+<meta property="og:image:width" content="1920">
+<meta property="og:image:height" content="1080">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cyber Drift: SF Overdrive">
+<meta name="twitter:description" content="High-octane autonomous street racing, neon drift events, and intense police pursuits across a hyper-realistic 3D San Francisco.">
+<meta name="twitter:image" content="assets/cyber_drift_loading.webp">
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAA/1BMVEXlnRX1pwPlXAH52V/27d3sKhrzlAH52iKlZghYJhH3bgAwEg/u2hz64J3xmAPz9ef57KemEwPisl7ZcQD52Bb/AABnYF1lSx3ZbgD05LOqVQC6UAGqqlW9oWL/f3/cuZHJvsr4xwv39GD37dR/fwB///+AXEW6vdC/w7//qlX/qqr15b357s4AAAD7xwb4qAXoeAL8uATrhQLzmQLTZwH81gb86bPFWgH+5An99tH//QDbcwH72I4SAAD5y26/fwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADqOUkZAAAAQHRSTlPyFPD/8v5i8v3/C/8g8KMcEv7/XqUB//6pagNJA/8C//9nEmcCAv///wMDhLkA/v36/v38/P77/f79A/v8//8EtAR+KwAAAm9JREFUeNpdk4lW2zAQRUeyIy9x7OwJUAqU7q12yTvm//+qI0MOlDnezryr55E0An6JHu8q7rq44u8DLh9r/hiv6i6Ou/pv/PhtXX0A1vyq62okui48rjDxH/CbV6swHrW4jrvVquJf3gPz+LF+CWTGrvvz6jEDn/l6VdfTWI8Bwjuqa/T4fAGqvhqncYQogu00TRBNMI5TjelX4BNfRwBgBmuMEFZJZRKAcY3CC0B6AtIMiwWlVEq6wI/BSCD9rxnoe0442VtF6UJJra1CUMkSk7z/ygEXsAjFFIzRjfRR5O2GMjbncKY98GLf7gveP+whTUUAREqhfOhfBSiSVgpWgG9tKhKdhCuViYCCCdkmBaDu7G4vvE9PGfgo8ZCd0taLklmHBFAD2uRS+FOWok3StgLS5ckLmVsNhsKN08KCFiKVIvEthkf/VAhdWqHdDfCz0Vpq4cU2vr9Dwt/dx1uBgNVanTkcdkZaBFA/Hn9s23Y6Hn8GQlsrze4AnChrLAJj/LRc3rbtLb7iSeCKGTsQDjnfGRMsovh7lkXeR9nyGEf4W2PMjudw6AlVBpdYRKst6khsV5HQ0qqBkh5/ESxU2AQsLM0wUi+CPjiFBmE3CS/RAgkPT3Pg9IKBKlEKQH5gagiISLE+DBASd98pdshnALdbORcKhWyDkVmcIWYUCWclNMwzL6kbkJAbbJbFRlprhsaVKLwAeU9U0yChQzdh1xjjmkaRPr90dc4ZbdDDSDXrCnXKeP52Lp45Qw8XKg3lh/EsTOHtZAUC065xeAWUzQW8O5vXnJQozuEcduz1x9ONAwg7K1yRMyP8Mp7zf3Sbk+9myTBeAAAAAElFTkSuQmCC">
+</head>
+<body class="teleop waymo">
+<div id="view"><canvas id="c"></canvas></div>
+
+<div class="ov" id="where"><div class="hood" id="wHood"></div><div class="st" id="wSt">, </div><div class="x" id="wX"></div></div>
+<div class="ov" id="mini"><canvas id="miniC" width="400" height="400"></canvas></div>
+<div class="ov" id="hud">
+  <svg id="dial" viewBox="0 0 240 240" aria-hidden="true">
+    <defs>
+      <radialGradient id="dface" cx="50%" cy="45%" r="55%"><stop offset="0" stop-color="#1b2230" stop-opacity=".78"/><stop offset=".75" stop-color="#0c1016" stop-opacity=".72"/><stop offset="1" stop-color="#05070a" stop-opacity=".6"/></radialGradient>
+      <linearGradient id="nosG" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#1f8fff"/><stop offset="1" stop-color="#7fe3ff"/></linearGradient>
+    </defs>
+    <circle class="face" cx="120" cy="120" r="96"/>
+    <g id="ticks"></g>
+    <path class="trk" id="rpmT"/><path id="red"/><path id="rpm" pathLength="100"/>
+    <path class="nosT" id="nosT"/><path id="nos" pathLength="100"/>
+  </svg>
+  <div id="dialC"><div id="spd">000</div><div id="unit">KM/H</div><div id="gear">1</div></div>
+  <div id="aids"><i id="aDA" class="da" title="Driving level (I)"><svg viewBox="0 0 20 14" aria-hidden="true"><path d="M3.5 5.2Q10-.6 16.5 5.2M6.3 7.3Q10 4.2 13.7 7.3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><rect x="5" y="8.6" width="10" height="4.6" rx="2" fill="currentColor"/></svg><b id="aDAl">MAN</b></i><i id="aABS">ABS</i><i id="aTCS">TCS</i><i id="aESP">ESP</i></div>
+  <div id="gmode">A</div>
+</div>
+<div id="toast" class="ds-toast ds-pop" aria-live="polite"></div>
+<div class="ov" id="mpTags"></div>
+<div class="ov" id="mpPanel" role="dialog" aria-label="Drive together">
+  <button class="mpX" data-mp="close" type="button" aria-label="Close">×</button>
+  <h2>Drive <em>together</em></h2>
+  <p class="mpRoomName"></p>
+  <p class="mpStat" role="status" aria-live="polite"><i class="mpSpin" aria-hidden="true"></i><span></span><button type="button" data-mp="retry">Retry</button></p>
+  <ul class="mpList"></ul>
+  <label class="mpLink"><input readonly aria-label="Invite link" value=""></label>
+  <div class="mpBtns">
+    <button type="button" data-mp="create" class="mpGo">Open a room</button>
+    <button type="button" data-mp="copy">Copy invite link</button>
+    <button type="button" data-mp="invite">Invite friends</button>
+    <button type="button" data-mp="leave" class="mpLeave">Leave room</button>
+  </div>
+  <p class="mpErr" role="status"></p>
+</div>
+<div class="ov" id="brakeCue" aria-live="polite">BRAKE</div>
+<div class="tx" id="taxiTotal"></div>
+<div class="tx" id="taxiCard"></div>
+<div class="tx" id="taxiTrip"></div>
+<div class="tx on" id="taxiPen"></div>
+<div class="tx" id="taxiHint"></div>
+<div class="tx" id="taxiSum"></div>
+<div class="ov" id="drift">DRIFT</div>
+<div class="ov" id="fps"></div>
+<div id="menu" class="ov">
+  <button id="mpChip" type="button" title="Drive together" aria-label="Drive together: rooms and invites"><svg viewBox="0 0 24 16" aria-hidden="true"><circle cx="8" cy="5" r="3.2" fill="currentColor"/><path d="M1.5 15.5c.6-3.8 3.2-5.6 6.5-5.6s5.9 1.8 6.5 5.6z" fill="currentColor"/><circle cx="17" cy="5.6" r="2.6" fill="currentColor" opacity=".7"/><path d="M15.6 10.1c3.5-.6 6.3 1 6.9 5.4h-6.1c-.1-2.2-.4-3.9-.8-5.4z" fill="currentColor" opacity=".7"/></svg><b>+</b><i class="mpSpin" aria-hidden="true"></i></button>
+  <button id="bPause" title="Settings (Esc / P)">Menu</button>
+</div>
+
+<div class="ov" id="touch">
+  <div class="b" id="tSteer"></div>
+  <div class="b" id="tGas">GAS</div>
+  <div class="b" id="tBrake">BRAKE</div>
+  <div class="b" id="tHb">DRIFT</div>
+  <div class="b" id="tNitro">NOS</div>
+</div>
+
+<div class="ov" id="tbar"><button id="tMenu" type="button" aria-label="Menu: settings"><i></i><i></i><i></i></button><button id="tRw" type="button" aria-label="Rewind (hold)" title="Rewind (hold)">&#x27F2;</button><button id="tLift" type="button" aria-label="Lift (hold): fly" title="Lift (hold)">LIFT</button><button id="tFlip" type="button" aria-label="Flip (in the air)" title="Flip">FLIP</button><div id="tSpd"><b id="tSpdV">0</b><small id="tSpdU">MPH</small><em id="tGear">D</em><button id="tDA" type="button" title="Driving level: tap for the next" aria-label="Driving level"><svg viewBox="0 0 20 14" aria-hidden="true"><path d="M3.5 5.2Q10-.6 16.5 5.2M6.3 7.3Q10 4.2 13.7 7.3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><rect x="5" y="8.6" width="10" height="4.6" rx="2" fill="currentColor"/></svg><b id="tDAl">MAN</b></button></div></div>
+<div class="ov" id="gHint" aria-hidden="true">
+  <div><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="9" fill="rgba(63,214,198,.85)"/><circle cx="23" cy="23" r="16" fill="none" stroke="rgba(63,214,198,.5)" stroke-width="2"/></svg>Hold anywhere<small>drive · pull back a little to coast</small></div>
+  <div><svg viewBox="0 0 46 46"><path d="M6 23h34M6 23l6-5M6 23l6 5M40 23l-6-5M40 23l-6 5" stroke="#f3f4f1" stroke-width="2.4" fill="none" stroke-linecap="round"/><circle cx="23" cy="23" r="7" fill="rgba(63,214,198,.85)"/></svg>Slide left / right<small>steer</small></div>
+  <div><svg viewBox="0 0 46 46"><circle cx="15" cy="17" r="7" fill="rgba(63,214,198,.85)"/><circle cx="31" cy="17" r="7" fill="rgba(255,90,79,.85)"/><path d="M23 30v11M23 41l-5-5M23 41l5-5" stroke="#ff7a6f" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>2nd finger or pull down<small>brake · hold to reverse</small></div>
+</div>
+<div class="ov" id="help"><div class="card">
+  <h2>Controls</h2>
+  <div class="touchOnly" style="display:none">
+    <div><b>Hold anywhere</b> drive · pull back a little (or let go) to coast</div>
+    <div><b>Slide left / right</b> steer (from where the finger came down)</div>
+    <div><b>Second finger · pull down</b> brake · hold at a stop to reverse</div>
+    <div><b>☰</b> settings: autopilot, vehicle, light, graphics · <b>minimap</b> the map</div>
+    <div><b>⟲</b> (hold) rewind the last 10 s</div>
+  </div>
+  <div class="deskOnly">
+    <div><b>W / ↑</b> throttle &nbsp; <b>S / ↓</b> brake · reverse</div>
+    <div><b>A D / ← →</b> steer</div>
+    <div><b>Tap brake in a turn</b> brake-to-drift · hold throttle to keep it</div>
+    <div><b>Space</b> handbrake &nbsp; <b>Shift / N</b> nitrous</div>
+    <div><b>C</b> camera &nbsp; <b>B</b> look back &nbsp; <b>T</b> time of day</div>
+    <div><b>Backspace</b> (hold) rewind the last 10 s &nbsp; <b>Stunts</b> speed traps, speed zones, drift zones and danger signs on the map: beat the stars</div>
+    <div><b>Tab / G</b> map (scroll to zoom, drag to move; tap the minimap on touch)</div>
+    <div><b>R</b> back on the road &nbsp; <b>U</b> mph / km/h &nbsp; <b>M</b> sound &nbsp; <b>L</b> radio &nbsp; <b>K</b> next track &nbsp; <b>H</b> this card</div>
+    <div><b>Z / X</b> shift down / up (manual gearbox) &nbsp; <b>Esc / P</b> pause · assists &nbsp; <b>I</b> Driver Assist</div>
+    <div><b>Waymo taxi</b> stop at the glowing kerb to pick up · drop off; lift off to regenerate</div>
+    <div><b>Gamepad</b> RT / LT, stick, A handbrake, X nitrous, Y camera, LB / RB shift, Start pause, d-pad down Driver Assist, d-pad left (hold) rewind</div>
+  </div>
+</div></div>
+</div></div>
+
+<div class="ov" id="pause"><div class="card" role="dialog" aria-modal="true" aria-label="Settings">
+  <nav id="setSide" role="tablist" aria-orientation="vertical" aria-label="Settings">
+    <h2>Settings<small>Paused</small></h2>
+    <button class="tab" data-tab="autopilot" role="tab"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.3"/><path d="M3.3 10.6c3-.9 5.7-1.3 8.7-1.3s5.7.4 8.7 1.3M10.1 14l-2.4 6.6M13.9 14l2.4 6.6"/></svg>Autopilot</button>
+    <button class="tab" data-tab="driving" role="tab"><svg viewBox="0 0 24 24"><path d="M4.4 17.5a8.6 8.6 0 1 1 15.2 0"/><path d="m12 13.5 4.2-4.2"/><circle cx="12" cy="13.5" r="1.4"/></svg>Driving</button>
+    <button class="tab" data-tab="vehicle" role="tab"><svg viewBox="0 0 24 24"><path d="M3.5 17v-3.8l2.2-5.2a1.5 1.5 0 0 1 1.4-1h9.8a1.5 1.5 0 0 1 1.4 1l2.2 5.2V17zM3.5 13h17M5.8 17v2.2M18.2 17v2.2"/></svg>Vehicle</button>
+    <button class="tab" data-tab="missions" role="tab"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Activities</button>
+    <button class="tab" data-tab="display" role="tab"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg>Display</button>
+    <button class="tab" data-tab="graphics" role="tab"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4M6 13l4-4 3 3 3-5 2 3"/></svg>Graphics</button>
+    <button class="tab" data-tab="sound" role="tab"><svg viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>Sound</button>
+    <button class="tab" data-tab="world" role="tab"><svg viewBox="0 0 24 24"><path d="M3 20.5h18M5 20.5V9l5-3v14.5M10 20.5V4h6v16.5M16 20.5V11h3.5v9.5"/></svg>World</button>
+    <button class="tab mpOnly" data-tab="room" role="tab"><svg viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 19c.5-3.2 2.7-5 5.5-5s5 1.8 5.5 5"/><circle cx="16.5" cy="9.5" r="2.4"/><path d="M15.6 14.2c2.6-.3 4.5 1.3 4.9 4.3"/></svg>Room</button>
+    <button class="tab profOnly" data-tab="leaderboard" role="tab"><svg viewBox="0 0 24 24"><path d="M8 20.5V10h8v10.5M3 20.5V14h5M16 20.5V7h5v13.5M2 20.5h20M12 3.2l.9 1.8 2 .3-1.45 1.4.35 2-1.8-.95-1.8.95.35-2L9.1 5.3l2-.3z"/></svg>Leaderboard</button>
+    <button class="tab profOnly" data-tab="profile" role="tab"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.8 3.6-6 7-6s6.2 2.2 7 6"/></svg>Profile</button>
+    <button class="tab" data-tab="controls" role="tab"><svg viewBox="0 0 24 24"><path d="M7.5 7.5h9a4.5 4.5 0 0 1 4.4 5.4l-.8 4a2.5 2.5 0 0 1-4.3 1.2L13.6 16h-3.2l-2.2 2.1a2.5 2.5 0 0 1-4.3-1.2l-.8-4a4.5 4.5 0 0 1 4.4-5.4z"/><path d="M8 10.5v3M6.5 12h3"/><circle cx="15.8" cy="11" r=".5"/><circle cx="17.3" cy="13" r=".5"/></svg>Controls</button>
+    <button class="tab" data-tab="credits" role="tab"><svg viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10.1A4.2 4.2 0 0 1 12 7.4a4.2 4.2 0 0 1 7.5 2.5C19.5 15.4 12 20 12 20z"/></svg>Credits</button>
+    <div class="grow"></div>
+    <button id="resume" type="button">Resume driving</button>
+  </nav>
+  <div id="setPane">
+    <div id="setHead"><h2 id="setTitle">Autopilot</h2><button id="setX" type="button" aria-label="Close (Esc)" title="Close (Esc)">&times;</button></div>
+
+    <section class="sec" data-sec="autopilot">
+      <h3>Driving level <span class="hk">I · pad: d-pad down</span></h3>
+      <div class="seg lvl" role="radiogroup" aria-label="Driving level">
+        <button data-level="manual" role="radio" aria-checked="true">Manual<small>No assist</small></button>
+        <button data-level="l3" role="radio" aria-checked="false">L3<small>Guidance</small></button>
+        <button data-level="l4" role="radio" aria-checked="false">L4<small>Lane · cruise</small></button>
+        <button data-level="l5" role="radio" aria-checked="false">L5<small>Self-driving</small></button>
+      </div>
+      <p class="note" id="lvlNote"></p>
+      <h3>Level 5</h3>
+      <div class="row stack"><span class="t">Driving profile<small>Mad Max: assertive - over the limit, passes slower cars, late firm braking. Chill: relaxed</small></span>
+        <div class="seg" role="radiogroup" aria-label="L5 profile"><button data-l5profile="chill" role="radio">Chill</button><button data-l5profile="madmax" role="radio">Mad Max</button></div></div>
+      <button class="row sw" data-dassist-all aria-pressed="false"><span class="t">Same level for every car<small>Off: each car keeps its own (every car starts on Manual)</small></span><b>OFF</b></button>
+    </section>
+
+    <section class="sec" data-sec="driving">
+      <h3>Stability assists</h3>
+      <button class="row sw" data-assist="abs" aria-pressed="true"><span class="t">ABS<small>Modulates the brakes to prevent wheel lock</small></span><b>ON</b></button>
+      <button class="row sw" data-assist="tcs" aria-pressed="true"><span class="t">Traction control (TCS)<small>Limits driven-wheel spin</small></span><b>ON</b></button>
+      <button class="row sw" data-assist="esp" aria-pressed="true"><span class="t">Stability control (ESP)<small>Brakes individual wheels to control skids</small></span><b>ON</b></button>
+      <button class="row sw" data-assist="steering" aria-pressed="true"><span class="t">Steering helper<small>Smooths turn-in and corrects steering</small></span><b>ON</b></button>
+      <h3>Transmission</h3>
+      <div class="row"><span class="t">Gearbox<small>Automatic, or shift yourself<span id="manualHint">: Z / X or LB / RB down / up, brake to reverse; unsafe downshifts are blocked</span></small></span>
+        <div class="seg inl" role="radiogroup" aria-label="Gearbox"><button data-transmission="auto" role="radio">Automatic</button><button data-transmission="manual" role="radio">Manual</button></div></div>
+      <h3>Braking line</h3>
+      <div class="row"><span class="t">Braking line<small>Chevrons on the road: green, orange to brake, red too fast · in races, always (Manual too), or never</small></span>
+        <div class="seg inl" role="radiogroup" aria-label="Braking line"><button data-pref="brakeLine" data-v="races" role="radio">Races</button><button data-pref="brakeLine" data-v="always" role="radio">Always</button><button data-pref="brakeLine" data-v="off" role="radio">Off</button></div></div>
+      <h3>Units</h3>
+      <div class="row"><span class="t">Speed<small>The speedometer and the distances · U · Auto: the city's own</small></span>
+        <div class="seg inl" role="radiogroup" aria-label="Speed units"><button data-units="auto" role="radio">Auto</button><button data-units="mph" role="radio">mph</button><button data-units="kmh" role="radio">km/h</button></div></div>
+    </section>
+
+    <section class="sec" data-sec="vehicle">
+      <h3 class="tele">Your car</h3>
+      <button class="row tele" id="vehicleBtn"><span class="t">Change vehicle<small>Choose your FSD: five cars, from the Waymo to the Cybertruck</small></span><b class="v">Waymo</b><i class="chev"></i></button>
+      <button class="row" id="garageBtn"><span class="t">Customize<small>The garage: paint, finish, calipers and wheels on the turntable</small></span><i class="chev"></i></button>
+      <button class="row sw tele" id="faresBtn" aria-pressed="true"><span class="t">Fares<small>Off: free roam - drive anywhere, no passengers</small></span><b>ON</b></button>
+      <div class="row wmoOnly"><span class="t">Ride style<small>Street: speed, skill and heat build a bounty · Comfort: smooth rides tip</small></span>
+        <div class="seg inl" role="radiogroup" aria-label="Ride style"><button data-ridestyle="street" role="radio">Street</button><button data-ridestyle="comfort" role="radio">Comfort</button></div></div>
+      <h3 class="modeH">Mode</h3>
+      <button class="row" data-mode-switch><span class="t">Game mode<small>Free roam in the Ferrari · Waymo taxi: pick up fares - reloads</small></span><b class="v">Free roam</b><i class="chev"></i></button>
+    </section>
+
+    <section class="sec" data-sec="missions">
+      <div class="act-hero">
+        <div class="act-hero-title">
+          <h3>Activities &amp; Missions</h3>
+          <span class="act-hero-badge">SF URBAN OPERATIONS</span>
+        </div>
+        <p class="note">Sanctioned checkpoint races, tactical police pursuit evasions, precision drift challenges on iconic San Francisco hills, and VIP executive fares.</p>
+      </div>
+
+      <div class="act-filter-bar" role="radiogroup" aria-label="Filter activities">
+        <button type="button" class="act-chip active" data-act-filter="all">All Activities</button>
+        <button type="button" class="act-chip" data-act-filter="race">🏁 Checkpoint Races</button>
+        <button type="button" class="act-chip" data-act-filter="pursuit">🚨 Police Pursuits</button>
+        <button type="button" class="act-chip" data-act-filter="drift">🔥 Drift Events</button>
+        <button type="button" class="act-chip" data-act-filter="fare">⭐ VIP Fares</button>
+      </div>
+
+      <div class="act-grid" id="actGrid">
+        <!-- 1. Checkpoint Races -->
+        <article class="act-card" data-act-type="race" data-act-id="california">
+          <div class="act-card-top">
+            <span class="act-type-tag tag-race">Checkpoint Race</span>
+            <span class="act-stars" data-stars-for="california"><i>★</i><i>★</i><i>★</i></span>
+          </div>
+          <h4 class="act-card-title">California Street Sprint</h4>
+          <p class="act-card-sub">Van Ness over Nob Hill to Financial District</p>
+          <div class="act-card-targets">
+            <span class="tgt"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Gold &lt; 1:15</span>
+            <span class="tgt"><svg viewBox="0 0 24 24"><polygon points="12 2 15 8 22 9 17 14 18 21 12 18 6 21 7 14 2 9 9 8 12 2"/></svg> 3 Rivals</span>
+            <span class="tgt"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg> 2.4 km</span>
+          </div>
+          <div class="act-card-footer">
+            <div class="act-rewards">
+              <b class="act-reward-cash">+$3,500</b>
+              <span class="act-reward-xp">+1,200 XP</span>
+            </div>
+            <button type="button" class="act-launch-btn" data-launch="california" data-type="race">Start Race</button>
+          </div>
+          <div class="act-card-best" data-best-for="california">Best: --</div>
+        </article>
+
+        <article class="act-card" data-act-type="race" data-act-id="powell">
+          <div class="act-card-top">
+            <span class="act-type-tag tag-race">Checkpoint Race</span>
+            <span class="act-stars" data-stars-for="powell"><i>★</i><i>★</i><i>★</i></span>
+          </div>
+          <h4 class="act-card-title">Powell to the Bay</h4>
+          <p class="act-card-sub">Union Square up Nob Hill &amp; down Hyde St to Fisherman's Wharf</p>
+          <div class="act-card-targets">
+            <span class="tgt"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Gold &lt; 1:30</span>
+            <span class="tgt"><svg viewBox="0 0 24 24"><polygon points="12 2 15 8 22 9 17 14 18 21 12 18 6 21 7 14 2 9 9 8 12 2"/></svg> 3 Rivals</span>
+            <span class="tgt"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg> 2.8 km</span>
+          </div>
+          <div class="act-card-footer">
+            <div class="act-rewards">
+              <b class="act-reward-cash">+$4,200</b>
+              <span class="act-reward-xp">+1,500 XP</span>
+            </div>
+            <button type="button" class="act-launch-btn" data-launch="powell" data-type="race">Start Race</button>
+          </div>
+          <div class="act-card-best" data-best-for="powell">Best: --</div>
+        </article>
+
+        <article class="act-card" data-act-type="race" data-act-id="market">
+          <div class="act-card-top">
+            <span class="act-type-tag tag-race">Checkpoint Race</span>
+            <span class="act-stars" data-stars-for="market"><i>★</i><i>★</i><i>★</i></span>
+          </div>
+          <h4 class="act-card-title">Market Street High-Speed Run</h4>
+          <p class="act-card-sub">Wide boulevard sprint slicing through downtown to Ferry Building</p>
+          <div class="act-card-targets">
+            <span class="tgt"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Gold &lt; 1:12</span>
+            <span class="tgt"><svg viewBox="0 0 24 24"><polygon points="12 2 15 8 22 9 17 14 18 21 12 18 6 21 7 14 2 9 9 8 12 2"/></svg> 3 Rivals</span>
+            <span class="tgt"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg> 3.1 km</span>
+          </div>
+          <div class="act-card-footer">
+            <div class="act-rewards">
+              <b class="act-reward-cash">+$4,800</b>
+              <span class="act-reward-xp">+1,800 XP</span>
+            </div>
+            <button type="button" class="act-launch-btn" data-launch="market" data-type="race">Start Race</button>
+          </div>
+          <div class="act-card-best" data-best-for="market">Best: --</div>
+        </article>
+
+        <!-- 2. Police Pursuits -->
+        <article class="act-card" data-act-type="pursuit" data-act-id="pursuit_heat1">
+          <div class="act-card-top">
+            <span class="act-type-tag tag-pursuit">Police Pursuit · Heat 1</span>
+            <span class="act-stars" data-stars-for="pursuit_heat1"><i>★</i><i>★</i><i>★</i></span>
+          </div>
+          <h4 class="act-card-title">City Patrol Evasion</h4>
+          <p class="act-card-sub">Outrun local patrol squad cars and escape into a Cooldown Zone</p>
+          <div class="act-card-targets">
+            <span class="tgt"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Heat 1 Patrols</span>
+            <span class="tgt"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Evade &gt; 45s</span>
+            <span class="tgt"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Safehouse Cooldown</span>
+          </div>
+          <div class="act-card-footer">
+            <div class="act-rewards">
+              <b class="act-reward-cash">+$2,500 Bounty</b>
+              <span class="act-reward-xp">+800 XP</span>
+            </div>
+            <button type="button" class="act-launch-btn btn-danger" data-launch="pursuit_heat1" data-type="pursuit">Trigger Pursuit</button>
+          </div>
+          <div class="act-card-best" data-best-for="pursuit_heat1">Record: --</div>
+        </article>
+
+        <article class="act-card" data-act-type="pursuit" data-act-id="pursuit_heat3">
+          <div class="act-card-top">
+            <span class="act-type-tag tag-pursuit">Police Pursuit · Heat 3</span>
+            <span class="act-stars" data-stars-for="pursuit_heat3"><i>★</i><i>★</i><i>★</i></span>
+          </div>
+          <h4 class="act-card-title">Tactical Pursuit &amp; Roadblocks</h4>
+          <p class="act-card-sub">Aggressive tactical cruisers, PIT maneuvers, boulevard roadblocks</p>
+          <div class="act-card-targets">
+            <span class="tgt"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Heat 3 Tactical</span>
+            <span class="tgt"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Roadblocks Active</span>
+            <span class="tgt"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Cooldown Zone</span>
+          </div>
+          <div class="act-card-footer">
+            <div class="act-rewards">
+              <b class="act-reward-cash">+$6,000 Bounty</b>
+              <span class="act-reward-xp">+2,200 XP</span>
+            </div>
+            <button type="button" class="act-launch-btn btn-danger" data-launch="pursuit_heat3" data-type="pursuit">Trigger Pursuit</button>
+          </div>
+          <div class="act-card-best" data-best-for="pursuit_heat3">Record: --</div>
+        </article>
+
+        <article class="act-card" data-act-type="pursuit" data-act-id="pursuit_heat5">
+          <div class="act-card-top">
+            <span class="act-type-tag tag-pursuit">Police Pursuit · Heat 5</span>
+            <span class="act-stars" data-stars-for="pursuit_heat5"><i>★</i><i>★</i><i>★</i></span>
+          </div>
+          <h4 class="act-card-title">Most Wanted Interceptors</h4>
+          <p class="act-card-sub">State Interceptors, Spike Strips &amp; Police Helicopter tracking</p>
+          <div class="act-card-targets">
+            <span class="tgt"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Maximum Heat 5</span>
+            <span class="tgt"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4m10-10h-4M6 12H2"/></svg> Air Support</span>
+            <span class="tgt"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Spike Strips</span>
+          </div>
+          <div class="act-card-footer">
+            <div class="act-rewards">
+              <b class="act-reward-cash">+$15,000 Bounty</b>
+              <span class="act-reward-xp">+5,000 XP</span>
+            </div>
+            <button type="button" class="act-launch-btn btn-danger" data-launch="pursuit_heat5" data-type="pursuit">Trigger Pursuit</button>
+          </div>
+          <div class="act-card-best" data-best-for="pursuit_heat5">Record: --</div>
+        </article>
+
+        <!-- 3. Drift & Stunt Events -->
+        <article class="act-card" data-act-type="drift" data-act-id="drift_lombard">
+          <div class="act-card-top">
+            <span class="act-type-tag tag-drift">Drift Event · Lombard St</span>
+            <span class="act-stars" data-stars-for="drift_lombard"><i>★</i><i>★</i><i>★</i></span>
+          </div>
+          <h4 class="act-card-title">Lombard Street Switchbacks</h4>
+          <p class="act-card-sub">Precision downhill brick hairpins with spectators and garden walls</p>
+          <div class="act-card-targets">
+            <span class="tgt"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> 3★ &gt; 60,000 pts</span>
+            <span class="tgt"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 75s Limit</span>
+            <span class="tgt"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> Slip Angle Bonus</span>
+          </div>
+          <div class="act-card-footer">
+            <div class="act-rewards">
+              <b class="act-reward-cash">+$5,000</b>
+              <span class="act-reward-xp">+2,000 XP</span>
+            </div>
+            <button type="button" class="act-launch-btn" data-launch="drift_lombard" data-type="drift">Start Drift</button>
+          </div>
+          <div class="act-card-best" data-best-for="drift_lombard">Best Score: --</div>
+        </article>
+
+        <article class="act-card" data-act-type="drift" data-act-id="drift_twinpeaks">
+          <div class="act-card-top">
+            <span class="act-type-tag tag-drift">Drift Event · Twin Peaks</span>
+            <span class="act-stars" data-stars-for="drift_twinpeaks"><i>★</i><i>★</i><i>★</i></span>
+          </div>
+          <h4 class="act-card-title">Twin Peaks Summit Slide</h4>
+          <p class="act-card-sub">Sweeping high-velocity power slides along the scenic summit ridge</p>
+          <div class="act-card-targets">
+            <span class="tgt"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> 3★ &gt; 90,000 pts</span>
+            <span class="tgt"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 90s Limit</span>
+            <span class="tgt"><svg viewBox="0 0 24 24"><polygon points="12 2 15 8 22 9 17 14 18 21 12 18 6 21 7 14 2 9 9 8 12 2"/></svg> High G-Force</span>
+          </div>
+          <div class="act-card-footer">
+            <div class="act-rewards">
+              <b class="act-reward-cash">+$7,500</b>
+              <span class="act-reward-xp">+3,000 XP</span>
+            </div>
+            <button type="button" class="act-launch-btn" data-launch="drift_twinpeaks" data-type="drift">Start Drift</button>
+          </div>
+          <div class="act-card-best" data-best-for="drift_twinpeaks">Best Score: --</div>
+        </article>
+
+        <!-- 4. VIP & Taxi Fares -->
+        <article class="act-card" data-act-type="fare" data-act-id="fare_vip_comfort">
+          <div class="act-card-top">
+            <span class="act-type-tag tag-fare">VIP Luxury Service</span>
+            <span class="act-stars" data-stars-for="fare_vip_comfort"><i>★</i><i>★</i><i>★</i></span>
+          </div>
+          <h4 class="act-card-title">Fairmont Hotel VIP Transfer</h4>
+          <p class="act-card-sub">Luxury passenger transfer from Nob Hill to Ferry Building</p>
+          <div class="act-card-targets">
+            <span class="tgt"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> VIP Dignitary</span>
+            <span class="tgt"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Comfort &gt; 85%</span>
+            <span class="tgt"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 140s Par</span>
+          </div>
+          <div class="act-card-footer">
+            <div class="act-rewards">
+              <b class="act-reward-cash">+$4,500 + Tip</b>
+              <span class="act-reward-xp">+1,400 XP</span>
+            </div>
+            <button type="button" class="act-launch-btn" data-launch="fare_vip_comfort" data-type="fare">Accept Fare</button>
+          </div>
+          <div class="act-card-best" data-best-for="fare_vip_comfort">Rating: --</div>
+        </article>
+
+        <article class="act-card" data-act-type="fare" data-act-id="fare_express_rush">
+          <div class="act-card-top">
+            <span class="act-type-tag tag-fare">Express Taxi Rush</span>
+            <span class="act-stars" data-stars-for="fare_express_rush"><i>★</i><i>★</i><i>★</i></span>
+          </div>
+          <h4 class="act-card-title">Union Square Express Rush</h4>
+          <p class="act-card-sub">Fast passenger rush from Union Square to Pier 39 ferry gate</p>
+          <div class="act-card-targets">
+            <span class="tgt"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Time Limit: 85s</span>
+            <span class="tgt"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Speed Bonus</span>
+            <span class="tgt"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg> Waterfront Drop</span>
+          </div>
+          <div class="act-card-footer">
+            <div class="act-rewards">
+              <b class="act-reward-cash">+$5,200 + Tip</b>
+              <span class="act-reward-xp">+1,600 XP</span>
+            </div>
+            <button type="button" class="act-launch-btn" data-launch="fare_express_rush" data-type="fare">Accept Fare</button>
+          </div>
+          <div class="act-card-best" data-best-for="fare_express_rush">Best: --</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="sec" data-sec="display">
+      <h3>Time of day <span class="hk">T key</span></h3>
+      <div class="seg" role="radiogroup" aria-label="Time of day">
+        <button data-tod="noon" role="radio">Sunny</button><button data-tod="golden" role="radio">Golden hour</button><button data-tod="fog" role="radio">Fog</button><button data-tod="rain" role="radio">Rain</button><button data-tod="dusk" role="radio">Blue hour</button><button data-tod="night" role="radio">Night</button>
+      </div>
+      <p class="note">The light and the weather<span class="shared">shared with the room</span></p>
+      <h3>Camera <span class="hk">C key</span></h3>
+      <div class="seg" role="radiogroup" aria-label="Camera view">
+        <button data-cam="0" role="radio">Chase</button><button data-cam="1" role="radio">Far chase</button><button data-cam="2" role="radio">Hood</button><button data-cam="3" role="radio">Bumper</button>
+      </div>
+      <h3>Photo mode <span class="hk">F key</span></h3>
+      <button class="row" id="photoBtn"><span class="t">Photo mode<small>The drive frozen, a free camera round the car, the look - field of view, exposure, depth blur, filters - and a PNG to save</small></span><i class="chev"></i></button>
+      <h3>Motion blur</h3>
+      <div class="seg" role="radiogroup" aria-label="Motion blur"><button data-pref="blur" data-v="subtle" role="radio">Subtle<small>Crisp at city and highway speeds</small></button><button data-pref="blur" data-v="forza" role="radio">Forza<small>The edges streak from ~80 km/h</small></button></div>
+      <h3>Camera vibration</h3>
+      <div class="seg" role="radiogroup" aria-label="Camera vibration"><button data-pref="vibe" data-v="on" role="radio">On<small>The road felt at speed and off it</small></button><button data-pref="vibe" data-v="off" role="radio">Off<small>A steady camera</small></button></div>
+      <h3>HUD</h3>
+      <div class="seg" role="radiogroup" aria-label="HUD"><button data-pref="hud" data-v="full" role="radio">Full<small>Map, speed, aids</small></button><button data-pref="hud" data-v="min" role="radio">Minimal<small>Map and speed</small></button><button data-pref="hud" data-v="off" role="radio">Off<small>Just the road</small></button></div>
+    </section>
+
+    <section class="sec" data-sec="graphics">
+      <h3>Graphics quality</h3>
+      <div class="rlist" role="radiogroup" aria-label="Graphics quality">
+        <button class="radio" data-gfx="auto" role="radio"><span class="t">Auto<small>What this device runs best</small></span><b></b></button>
+        <button class="radio" data-gfx="saver" role="radio"><span class="t">Battery saver<small>Small city round the car, 0.6 resolution, no shadows: coolest</small></span><b></b></button>
+        <button class="radio" data-gfx="mobile" role="radio"><span class="t">Mobile<small>Lighter city and textures, 1k shadows: phones and tablets</small></span><b></b></button>
+        <button class="radio" data-gfx="perf" role="radio"><span class="t">Performance<small>The full city at 1x resolution, 2k shadows, no reflections</small></span><b></b></button>
+        <button class="radio" data-gfx="high" role="radio"><span class="t">High<small>Up to 1.75x resolution, 4k shadows, street reflections</small></span><b></b></button>
+        <button class="radio" data-gfx="ultra" role="radio"><span class="t">Ultra<small>Native resolution (2x), 4k shadows and sky, far reflections</small></span><b></b></button>
+      </div>
+      <div id="gfxAsk" role="alertdialog" aria-live="polite"><span></span><button type="button" id="gfxGo">Restart now</button><button type="button" id="gfxNo">Later</button></div>
+      <p id="gfxNote"></p>
+      <h3>Frame rate</h3>
+      <div class="seg" role="radiogroup" aria-label="Frame rate">
+        <button data-fps="30" role="radio">30 FPS<small>Cool and steady</small></button>
+        <button data-fps="60" role="radio">60 FPS<small>Smoother, warmer</small></button>
+        <button data-fps="0" role="radio">Uncapped<small>The display's rate</small></button>
+      </div>
+    </section>
+
+    <section class="sec" data-sec="sound">
+      <h3>Volume</h3>
+      <div class="row stack"><span class="t">Master volume</span><b class="v" id="masterVolV">100</b>
+        <div class="slide"><svg viewBox="0 0 24 24"><path d="M5 9.5h3.5L13 5.5v13l-4.5-4H5z"/></svg><input id="masterVol" type="range" min="0" max="100" step="5" value="100" aria-label="Master volume"><svg viewBox="0 0 24 24"><path d="M3 9.5h3.5L11 5.5v13l-4.5-4H3z"/><path d="M14.5 9a4 4 0 0 1 0 6M17 6.5a7.5 7.5 0 0 1 0 11"/></svg></div></div>
+      <h3>Music</h3>
+      <button class="row sw" data-music aria-pressed="true"><span class="t">Music<small>The radio · L: station · K: next track</small></span><b>ON</b></button>
+      <div class="row stack"><span class="t">Music volume</span><b class="v" id="musicVolV">70</b>
+        <div class="slide"><svg viewBox="0 0 24 24"><path d="M5 9.5h3.5L13 5.5v13l-4.5-4H5z"/></svg><input id="musicVol" type="range" min="0" max="100" step="5" value="70" aria-label="Music volume"><svg viewBox="0 0 24 24"><path d="M3 9.5h3.5L11 5.5v13l-4.5-4H3z"/><path d="M14.5 9a4 4 0 0 1 0 6M17 6.5a7.5 7.5 0 0 1 0 11"/></svg></div></div>
+      <div class="btns"><button class="pbtn" type="button" id="radioStation">Station: Horizon Mix</button><button class="pbtn" type="button" id="nextTrack">Next track</button></div>
+    </section>
+
+    <section class="sec" data-sec="world">
+      <h3>Streets<span class="shared">traffic and parked cars shared with the room</span></h3>
+      <button class="row sw" id="trafficBtn" aria-pressed="true"><span class="t">Traffic<small>Off: no moving cars, buses, cable cars or streetcars</small></span><b>ON</b></button>
+      <button class="row sw" id="parkedBtn" aria-pressed="true"><span class="t">Parked cars<small>Off: empty kerbs</small></span><b>ON</b></button>
+      <h3>Discovery</h3>
+      <div class="row"><span class="t" id="discRoads">Roads discovered<small id="discRoadsS">Drive a street to discover it: the map traces them</small></span><b class="v" id="discRoadsV">0 %</b></div>
+      <div class="row"><span class="t">Boards smashed<small id="discBoardsS">XP and fast-travel boards at the viewpoints: drive through them</small></span><b class="v" id="discBoardsV">0 / 0</b></div>
+      <h3>Life and activities</h3>
+      <button class="row sw" data-pref="peds" aria-pressed="true"><span class="t">Pedestrians<small>People on the sidewalks · applies on the next start</small></span><b>ON</b></button>
+      <button class="row sw" data-pref="guide" aria-pressed="true"><span class="t">What's next<small>The nearest stunt or board not done yet, its route on the maps (free roam)</small></span><b>ON</b></button>
+      <button class="row sw" data-pref="stunts" aria-pressed="true"><span class="t">PR stunts<small>Speed traps, speed zones, drift zones, danger signs: the beacons, the map's badges, the scores</small></span><b>ON</b></button>
+      <h3>Police</h3>
+      <button class="row sw" id="policeBtn" aria-pressed="true"><span class="t">Police<small>Patrol cars and pursuits when cruising (never in a race) · Off: no police</small></span><b>ON</b></button>
+    </section>
+
+    <section class="sec mpOnly" data-sec="room">
+      <h3>Drive together</h3>
+      <div class="row"><span class="t" id="setRoomName">Not in a room<small id="setRoomStat">Open a room and send the link. Up to 8 drivers.</small></span></div>
+      <button class="row" id="setRoomOpen"><span class="t">Room panel<small>Open a room, copy the invite link, see who is driving, go to them</small></span><i class="chev"></i></button>
+      <p class="note">Traffic, parked cars and the time of day are the same for everybody in a room.</p>
+    </section>
+
+    <section class="sec profOnly" data-sec="profile">
+      <div class="acWrap" data-acchip></div>
+      <div class="row spRow"><span class="t">AI spending limit<small>Ask me again before more than this many AI generations in a session</small></span><select id="spendCap" aria-label="AI generations a session before asking again"><option>1</option><option>3</option><option>5</option><option>10</option><option>20</option></select></div>
+      <p class="note" id="spendLife"></p>
+      <h3>Your record</h3>
+      <div class="stats" id="setStats"></div>
+      <p class="note" id="setStatsNote"></p>
+    </section>
+
+    <section class="sec profOnly" data-sec="leaderboard">
+      <h3>Every driver</h3>
+      <div class="seg" role="radiogroup" aria-label="Board"><button type="button" role="radio" data-lb="cash">Cash</button><button type="button" role="radio" data-lb="races_won">Races won</button><button type="button" role="radio" data-lb="best_bounty">Bounty</button><button type="button" role="radio" data-lb="longest_drift">Drift</button><button type="button" role="radio" data-lb="xp">Level</button></div>
+      <div class="acWrap" data-acchip></div>
+      <ol class="lb" id="lbList"></ol>
+      <div class="btns"><button class="pbtn" id="lbMore" type="button" hidden>Show more</button></div>
+      <p class="note" id="lbNote"></p>
+    </section>
+
+    <section class="sec" data-sec="controls">
+      <h3>Gamepad</h3>
+      <button class="row sw" data-pref="rumble" aria-pressed="true"><span class="t">Rumble<small>The pad shakes on hits, kerbs, drifts, landings and ABS (where the browser supports it)</small></span><b>ON</b></button>
+      <div class="row stack"><span class="t">Steering sensitivity<small>The stick's response: low - gentle near the centre, high - quick</small></span><b class="v" id="steerSensV">50</b>
+        <div class="slide"><input type="range" min="0" max="100" step="5" value="50" data-prefnum="steerSens" aria-label="Steering sensitivity"></div></div>
+      <div class="row stack"><span class="t">Stick deadzone<small>How far the stick moves before it steers</small></span><b class="v" id="deadzoneV">12</b>
+        <div class="slide"><input type="range" min="0" max="30" step="1" value="12" data-prefnum="deadzone" data-unit=" %" aria-label="Stick deadzone"></div></div>
+      <h3>Camera</h3>
+      <div class="row stack"><span class="t">Field of view<small>Wider or narrower than the camera's own (degrees)</small></span><b class="v" id="fovAddV">0</b>
+        <div class="slide"><input type="range" min="-10" max="20" step="1" value="0" data-prefnum="fovAdd" data-unit="°" aria-label="Field of view"></div></div>
+      <h3>Controls</h3>
+      <div class="keys" id="setKeys"></div>
+      <h3>Help</h3>
+      <div class="btns"><button class="pbtn" data-act="help" type="button">Show the controls card (H)</button><button class="pbtn" id="introBtn" type="button">Replay the intro</button></div>
+    </section>
+
+    <section class="sec" data-sec="credits"></section>
+  </div>
+</div></div>
+
+<div class="ov" id="title">
+  <div id="titleBg" aria-hidden="true"><i></i></div>
+  <button id="creditsLink" type="button">Credits</button>
+  <div id="titleContent">
+    <h1 data-teleop>CYBER<em>DRIFT</em></h1>
+    <div class="sub">SF OVERDRIVE · Open-World Autonomous Racing & Police Pursuit</div>
+    <div id="bar"><i></i></div>
+    <div id="stage">Loading</div>
+    <div id="tierNote" role="status"></div>
+    <div id="cities" role="group" aria-label="City"></div>
+    <button id="go">Drive</button>
+    <div id="keysT">Hold anywhere to drive · slide to steer · second finger or pull down to brake<br>stop at the glowing kerb to pick up and drop off</div>
+    <div id="keys"><b>W</b><b>A</b><b>S</b><b>D</b> drive &nbsp; lift off to regenerate &nbsp; stop at the kerb for fares &nbsp; <b>Tab</b> map &nbsp; <b>Esc</b> menu</div>
+    <div id="err"></div>
+    <div id="nogpu" role="alert"><h2></h2><p></p><small></small><button type="button">Reload</button></div>
+  </div>
+</div>
+<div id="rotate" aria-hidden="true"><div><i></i>Turn your phone sideways to drive</div></div>
+
+<!-- Mission HUD and Post-Mission Results Summary Overlay -->
+<div class="ov" id="missionResults">
+  <div class="card mission-res-card" role="dialog" aria-modal="true" aria-label="Mission Results">
+    <div class="mres-header">
+      <span class="mres-type-badge" id="mresTypeBadge">CHECKPOINT RACE</span>
+      <h2 class="mres-title" id="mresTitle">California Street Sprint</h2>
+      <div class="mres-outcome mres-win" id="mresOutcome">MISSION COMPLETE</div>
+    </div>
+    
+    <div class="mres-stars" id="mresStars">
+      <i class="star on">★</i>
+      <i class="star on">★</i>
+      <i class="star on">★</i>
+    </div>
+    
+    <div class="mres-stats-grid">
+      <div class="mres-stat">
+        <span class="lbl">Time Elapsed</span>
+        <b class="val" id="mresTime">0:00.00</b>
+      </div>
+      <div class="mres-stat">
+        <span class="lbl" id="mresMetricLabel">Result</span>
+        <b class="val" id="mresMetric">1st Place</b>
+      </div>
+      <div class="mres-stat">
+        <span class="lbl">Top Speed</span>
+        <b class="val" id="mresSpeed">0 km/h</b>
+      </div>
+      <div class="mres-stat">
+        <span class="lbl">Medal / Rank</span>
+        <b class="val" id="mresRating">Gold Medal</b>
+      </div>
+    </div>
+    
+    <div class="mres-rewards">
+      <div class="mres-reward-chip cash">
+        <span>CASH EARNED</span>
+        <b id="mresCash">+$0</b>
+      </div>
+      <div class="mres-reward-chip xp">
+        <span>XP EARNED</span>
+        <b id="mresXP">+0 XP</b>
+      </div>
+    </div>
+    
+    <div class="mres-record" id="mresRecordNote" style="display:none;">
+      ⭐ <span>NEW PERSONAL BEST RECORD!</span>
+    </div>
+
+    <div class="mres-actions">
+      <button type="button" class="mres-btn mres-btn-retry" id="mresRetry">Retry Activity</button>
+      <button type="button" class="mres-btn mres-btn-menu" id="mresOpenMenu">Activities Hub</button>
+      <button type="button" class="mres-btn mres-btn-primary" id="mresClose">Continue Driving</button>
+    </div>
+  </div>
+</div>
+
+<!-- Active In-Game Mission HUD -->
+<div id="missionActiveHud" class="mission-active-hud" style="display:none;">
+  <div class="mah-header">
+    <span class="mah-badge" id="mahTypeBadge">ACTIVITY</span>
+    <span class="mah-name" id="mahName">California Street Sprint</span>
+  </div>
+  <div class="mah-body">
+    <div class="mah-metric-row">
+      <div class="mah-block"><small id="mahTimerLabel">TIME</small><b id="mahTimer">0:00.0</b></div>
+      <div class="mah-block"><small id="mahSecondaryLabel">CHECKPOINTS</small><b id="mahSecondaryVal">0/0</b></div>
+      <div class="mah-block"><small id="mahTertiaryLabel">TARGET</small><b id="mahTertiaryVal">1:15.0</b></div>
+    </div>
+    <div class="mah-prog-bar"><div class="mah-prog-fill" id="mahProgFill" style="width:0%"></div></div>
+    <div class="mah-hint" id="mahHint">Follow the glowing 3D course chevrons</div>
+  </div>
+  <button type="button" class="mah-abandon-btn" id="mahAbandonBtn" title="Abandon Activity (Esc)">✕ Abandon</button>
+</div>
+
+<!-- Dynamic Cooldown Zone Radar / Progress HUD -->
+<div id="cooldownZoneHud" class="cooldown-zone-hud" style="display:none;">
+  <div class="czh-pulse"></div>
+  <div class="czh-content">
+    <b id="czhTitle">COOLDOWN ZONE REACHED</b>
+    <small id="czhSub">Hiding · Police losing search signal</small>
+    <div class="czh-bar"><div class="czh-fill" id="czhFill" style="width:0%"></div></div>
+  </div>
+</div>
+
+<script type="module" src="./app.js"></script>
+<script type="module" src="./game_enhancements.js"></script>
+<script type="module" src="./missions_hub.js"></script>
+<script src="./pod.js" data-game="0e37f38c-08f2-47e1-97c5-9351f91eb66c" data-slug="teleoperator"></script>
+</body>
+</html>

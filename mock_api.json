@@ -1,0 +1,11 @@
+[
+  {
+    "url": "https://api.mindblown.ai/events",
+    "method": "POST",
+    "response": {
+      "ok": true,
+      "counted": true
+    },
+    "tampered": false
+  }
+]

@@ -1,0 +1,1235 @@
+{
+ "name": "San Francisco",
+ "proj": {
+  "lon0": -122.3935,
+  "lat0": 37.79553,
+  "kx": 87990,
+  "kz": 111050
+ },
+ "bounds": {
+  "w": -122.516,
+  "e": -122.384,
+  "n": 37.812,
+  "s": 37.75
+ },
+ "notch": {
+  "e": -122.48,
+  "n": 37.779
+ },
+ "regions": {
+  "west": {
+   "dir": "west/",
+   "split": true
+  },
+  "marin": {
+   "dir": "marin/",
+   "skipName": "^Golden Gate Bridge$",
+   "bounds": {
+    "w": -122.51,
+    "e": -122.468,
+    "n": 37.879,
+    "s": 37.823
+   },
+   "clear": {
+    "supports": true,
+    "lines": [
+     [
+      -7301,
+      -1399,
+      -7674,
+      -4087,
+      45
+     ]
+    ]
+   }
+  }
+ },
+ "districts": {
+  "list": [
+   "fidi",
+   "towers",
+   "jackson",
+   "chinatown",
+   "union",
+   "tenderloin",
+   "soma",
+   "wharf",
+   "northbeach",
+   "telegraph",
+   "nob",
+   "russian",
+   "marina",
+   "cowhollow",
+   "pacific",
+   "western",
+   "hayes",
+   "presidio",
+   "mission",
+   "castro",
+   "dolores",
+   "noe",
+   "twinpeaks",
+   "haight",
+   "richmond",
+   "seacliff",
+   "sausalito"
+  ],
+  "downtown": [
+   "fidi",
+   "towers",
+   "union",
+   "jackson",
+   "chinatown",
+   "tenderloin"
+  ],
+  "rowhouse": [
+   "western",
+   "hayes",
+   "pacific",
+   "cowhollow",
+   "castro",
+   "dolores",
+   "noe",
+   "twinpeaks",
+   "haight",
+   "richmond"
+  ],
+  "lines": {
+   "market": [
+    0,
+    0.697,
+    0,
+    0.717
+   ],
+   "columbus": [
+    1140,
+    0.66,
+    235,
+    -0.75
+   ]
+  },
+  "edges": {
+   "presidio": [
+    [
+     466,
+     -5059,
+     0.257,
+     -6148
+    ],
+    [
+     746,
+     -6148,
+     1.31,
+     -6300
+    ],
+    [
+     945,
+     -6300,
+     0.057
+    ]
+   ],
+   "seacliff": [
+    [
+     1080,
+     0,
+     0,
+     -8180
+    ],
+    [
+     1290,
+     0,
+     0
+    ]
+   ]
+  },
+  "rules": [
+   {
+    "if": [
+     [
+      "z",
+      ">",
+      3250
+     ],
+     [
+      "x",
+      ">",
+      -5600
+     ]
+    ],
+    "then": [
+     {
+      "if": [
+       [
+        "x",
+        "<",
+        -4250
+       ]
+      ],
+      "then": "twinpeaks"
+     },
+     {
+      "if": [
+       [
+        "x",
+        "<",
+        -3300
+       ]
+      ],
+      "then": [
+       {
+        "if": [
+         [
+          "z",
+          ">",
+          4350
+         ]
+        ],
+        "then": "noe"
+       },
+       {
+        "then": "castro"
+       }
+      ]
+     },
+     {
+      "if": [
+       [
+        "x",
+        "<",
+        -2560
+       ]
+      ],
+      "then": [
+       {
+        "if": [
+         [
+          "z",
+          ">",
+          4350
+         ]
+        ],
+        "then": "noe"
+       },
+       {
+        "then": "dolores"
+       }
+      ]
+     },
+     {
+      "if": [
+       [
+        "x",
+        "<",
+        -700
+       ]
+      ],
+      "then": "mission"
+     }
+    ]
+   },
+   {
+    "if": [
+     [
+      "z",
+      "<",
+      -2600
+     ]
+    ],
+    "then": "sausalito"
+   },
+   {
+    "if": [
+     [
+      "x",
+      "<",
+      -7611
+     ]
+    ],
+    "then": [
+     {
+      "if": [
+       [
+        "x",
+        ">",
+        -7960
+       ]
+      ],
+      "then": [
+       {
+        "if": [
+         [
+          "z",
+          "<",
+          "edge:seacliff"
+         ]
+        ],
+        "then": "presidio"
+       },
+       {
+        "then": "richmond"
+       }
+      ]
+     },
+     {
+      "if": [
+       [
+        "x",
+        ">",
+        -8720
+       ],
+       [
+        "z",
+        "<",
+        "edge:seacliff"
+       ]
+      ],
+      "then": "seacliff"
+     },
+     {
+      "then": "richmond"
+     }
+    ]
+   },
+   {
+    "if": [
+     [
+      "x",
+      "<",
+      -5000
+     ]
+    ],
+    "then": [
+     {
+      "if": [
+       [
+        "z",
+        "<",
+        "edge:presidio"
+       ]
+      ],
+      "then": "presidio"
+     },
+     {
+      "then": "richmond"
+     }
+    ]
+   },
+   {
+    "if": [
+     [
+      "market",
+      ">",
+      30
+     ]
+    ],
+    "then": [
+     {
+      "if": [
+       [
+        "x",
+        ">",
+        -1000
+       ],
+       [
+        "z",
+        "<",
+        1700
+       ]
+      ],
+      "then": "towers"
+     },
+     {
+      "if": [
+       [
+        "z",
+        ">",
+        2950
+       ],
+       [
+        "x",
+        ">=",
+        -2560
+       ],
+       [
+        "x",
+        "<",
+        -700
+       ]
+      ],
+      "then": "mission"
+     },
+     {
+      "if": [
+       [
+        "x",
+        "<",
+        -2350
+       ]
+      ],
+      "then": [
+       {
+        "if": [
+         [
+          "x",
+          "<",
+          -3300
+         ]
+        ],
+        "then": [
+         {
+          "if": [
+           [
+            "z",
+            ">",
+            2550
+           ],
+           [
+            "z",
+            "<",
+            3100
+           ],
+           [
+            "x",
+            "<",
+            -4250
+           ]
+          ],
+          "then": "haight"
+         },
+         {
+          "then": "western"
+         }
+        ]
+       },
+       {
+        "then": "hayes"
+       }
+      ]
+     },
+     {
+      "then": "soma"
+     }
+    ]
+   },
+   {
+    "if": [
+     [
+      "z",
+      ">",
+      2550
+     ],
+     [
+      "z",
+      "<",
+      3100
+     ],
+     [
+      "x",
+      "<",
+      -4250
+     ],
+     [
+      "x",
+      ">",
+      -5300
+     ]
+    ],
+    "then": "haight"
+   },
+   {
+    "if": [
+     [
+      "x",
+      ">",
+      -1195
+     ],
+     [
+      "x",
+      "<",
+      -1085
+     ],
+     [
+      "z",
+      ">",
+      -295
+     ],
+     [
+      "z",
+      "<",
+      -175
+     ],
+     [
+      "columbus",
+      "<",
+      26
+     ]
+    ],
+    "then": "northbeach"
+   },
+   {
+    "if": [
+     [
+      "x",
+      ">",
+      -1260
+     ],
+     [
+      "x",
+      "<",
+      -880
+     ],
+     [
+      "z",
+      ">",
+      -310
+     ],
+     [
+      "z",
+      "<",
+      -238
+     ]
+    ],
+    "then": "northbeach"
+   },
+   {
+    "if": [
+     [
+      "x",
+      ">",
+      -960
+     ],
+     [
+      "x",
+      "<",
+      -560
+     ],
+     [
+      "z",
+      ">",
+      -330
+     ],
+     [
+      "z",
+      "<=",
+      10
+     ]
+    ],
+    "then": "jackson"
+   },
+   {
+    "if": [
+     [
+      "x",
+      ">",
+      -1000
+     ],
+     [
+      "z",
+      ">",
+      -150
+     ]
+    ],
+    "then": "fidi"
+   },
+   {
+    "if": [
+     [
+      "x",
+      ">",
+      -960
+     ],
+     [
+      "z",
+      ">",
+      -380
+     ],
+     [
+      "z",
+      "<=",
+      -150
+     ]
+    ],
+    "then": "jackson"
+   },
+   {
+    "if": [
+     [
+      "z",
+      "<",
+      -1150
+     ],
+     [
+      "x",
+      ">",
+      -2700
+     ],
+     [
+      "x",
+      "<",
+      -800
+     ]
+    ],
+    "then": "wharf"
+   },
+   {
+    "if": [
+     [
+      "x",
+      ">",
+      -1290
+     ],
+     [
+      "x",
+      "<=",
+      -960
+     ],
+     [
+      "z",
+      ">",
+      -300
+     ],
+     [
+      "z",
+      "<",
+      580
+     ]
+    ],
+    "then": "chinatown"
+   },
+   {
+    "if": [
+     [
+      "x",
+      ">",
+      -1560
+     ],
+     [
+      "x",
+      "<=",
+      -960
+     ],
+     [
+      "z",
+      ">=",
+      560
+     ]
+    ],
+    "then": "union"
+   },
+   {
+    "if": [
+     [
+      "x",
+      ">",
+      -2650
+     ],
+     [
+      "x",
+      "<=",
+      -1560
+     ],
+     [
+      "z",
+      ">",
+      720
+     ]
+    ],
+    "then": "tenderloin"
+   },
+   {
+    "if": [
+     [
+      "x",
+      ">",
+      -2150
+     ],
+     [
+      "x",
+      "<=",
+      -1290
+     ],
+     [
+      "z",
+      ">",
+      -60
+     ],
+     [
+      "z",
+      "<=",
+      720
+     ]
+    ],
+    "then": "nob"
+   },
+   {
+    "if": [
+     [
+      "x",
+      ">",
+      -1750
+     ],
+     [
+      "z",
+      "<=",
+      -270
+     ]
+    ],
+    "then": [
+     {
+      "if": [
+       [
+        "x",
+        ">",
+        -1060
+       ],
+       [
+        "z",
+        ">",
+        -1150
+       ]
+      ],
+      "then": "telegraph"
+     },
+     {
+      "then": "northbeach"
+     }
+    ]
+   },
+   {
+    "if": [
+     [
+      "x",
+      ">",
+      -2750
+     ]
+    ],
+    "then": "russian"
+   },
+   {
+    "if": [
+     [
+      "z",
+      "<",
+      -400
+     ]
+    ],
+    "then": [
+     {
+      "if": [
+       [
+        "x",
+        "<",
+        -4700
+       ]
+      ],
+      "then": "presidio"
+     },
+     {
+      "then": "marina"
+     }
+    ]
+   },
+   {
+    "if": [
+     [
+      "z",
+      "<",
+      -120
+     ]
+    ],
+    "then": "cowhollow"
+   },
+   {
+    "if": [
+     [
+      "z",
+      "<",
+      950
+     ]
+    ],
+    "then": "pacific"
+   }
+  ],
+  "default": "western"
+ },
+ "bake": {
+  "streets": [
+   {
+    "name": "^Van Ness Avenue",
+    "twoway": true,
+    "median": 1,
+    "hw": 13.799999999999997,
+    "park": true,
+    "sw": 4.5
+   },
+   {
+    "name": "^Market Street",
+    "hwMin": {
+     "oneway": 4.4,
+     "twoway": 8.6
+    },
+    "park": false,
+    "sw": 7.5
+   },
+   {
+    "name": "^The Embarcadero",
+    "park": false,
+    "sw": 6.5,
+    "hw": {
+     "oneway": 5.549999999999999,
+     "twoway": 11.499999999999998
+    },
+    "median": {
+     "twoway": 1
+    }
+   },
+   {
+    "name": "^(Lombard Street|Broadway|Geary Street|Geary Boulevard)$",
+    "twoway": true,
+    "hwMin": 8.899999999999999
+   },
+   {
+    "name": "^Dolores Street$",
+    "twoway": true,
+    "median": 1,
+    "hwAdd": 1.6
+   }
+  ],
+  "medianPairs": [
+   "Dolores Street"
+  ],
+  "roadFloor": 1.9,
+  "cableGauge": "1067",
+  "openSpaces": "^(Corona Heights Park|Corona Heights Dog Play Area|Tank Hill|Kite Hill Open Space|Grand View Park|Twin Peaks)$",
+  "wildHills": "^(Corona Heights Park|Tank Hill|Kite Hill Open Space|Grand View Park)$",
+  "leafyDistricts": [
+   "marina",
+   "pacific",
+   "cowhollow",
+   "western",
+   "castro",
+   "noe",
+   "dolores"
+  ],
+  "palmStreets": "Embarcadero",
+  "styleDefault": {
+   "h": 14,
+   "hi": 2,
+   "lo": 1
+  },
+  "styles": {
+   "fidi": {
+    "h": 16,
+    "hi": 6,
+    "lo": 5
+   },
+   "towers": {
+    "h": 16,
+    "hi": 6,
+    "lo": 5
+   },
+   "jackson": {
+    "lo": 5
+   },
+   "chinatown": {
+    "lo": [
+     [
+      0.8,
+      4
+     ],
+     [
+      null,
+      3
+     ]
+    ]
+   },
+   "union": {
+    "h": 16,
+    "hi": [
+     [
+      0.5,
+      2
+     ],
+     [
+      null,
+      6
+     ]
+    ],
+    "lo": 3
+   },
+   "tenderloin": {
+    "h": 13,
+    "hi": [
+     [
+      0.6,
+      2
+     ],
+     [
+      null,
+      5
+     ]
+    ],
+    "lo": [
+     [
+      0.5,
+      3
+     ],
+     [
+      null,
+      2
+     ]
+    ]
+   },
+   "soma": {
+    "h": 13,
+    "hi": [
+     [
+      0.45,
+      2
+     ],
+     [
+      null,
+      5
+     ]
+    ],
+    "lo": [
+     [
+      0.45,
+      5
+     ],
+     [
+      0.8,
+      3
+     ],
+     [
+      null,
+      1
+     ]
+    ]
+   },
+   "wharf": {
+    "lo": [
+     [
+      0.5,
+      5
+     ],
+     [
+      null,
+      3
+     ]
+    ]
+   },
+   "northbeach": {
+    "h": 14,
+    "hi": 2,
+    "lo": [
+     [
+      0.5,
+      3
+     ],
+     [
+      0.8,
+      1
+     ],
+     [
+      null,
+      0
+     ]
+    ]
+   },
+   "telegraph": {
+    "h": 14,
+    "hi": 2,
+    "lo": [
+     [
+      0.6,
+      1
+     ],
+     [
+      null,
+      0
+     ]
+    ]
+   },
+   "nob": {
+    "h": 14,
+    "hi": 2,
+    "lo": [
+     [
+      0.6,
+      1
+     ],
+     [
+      null,
+      0
+     ]
+    ]
+   },
+   "russian": {
+    "h": 14,
+    "hi": 2,
+    "lo": [
+     [
+      0.45,
+      1
+     ],
+     [
+      null,
+      0
+     ]
+    ]
+   },
+   "marina": {
+    "h": 14,
+    "hi": 2,
+    "lo": [
+     [
+      0.8,
+      1
+     ],
+     [
+      null,
+      0
+     ]
+    ]
+   },
+   "cowhollow": {
+    "h": 14,
+    "hi": 2,
+    "lo": [
+     [
+      0.62,
+      0
+     ],
+     [
+      null,
+      1
+     ]
+    ]
+   },
+   "pacific": {
+    "h": 14,
+    "hi": 2,
+    "lo": [
+     [
+      0.62,
+      0
+     ],
+     [
+      null,
+      1
+     ]
+    ]
+   },
+   "western": {
+    "h": 14,
+    "hi": 2,
+    "lo": [
+     [
+      0.62,
+      0
+     ],
+     [
+      null,
+      1
+     ]
+    ]
+   },
+   "hayes": {
+    "h": 14,
+    "hi": 2,
+    "lo": [
+     [
+      0.62,
+      0
+     ],
+     [
+      null,
+      1
+     ]
+    ]
+   },
+   "haight": {
+    "h": 14,
+    "hi": 2,
+    "lo": [
+     [
+      0.62,
+      0
+     ],
+     [
+      null,
+      1
+     ]
+    ]
+   },
+   "castro": {
+    "h": 14,
+    "hi": 2,
+    "lo": [
+     [
+      0.62,
+      0
+     ],
+     [
+      null,
+      1
+     ]
+    ]
+   },
+   "dolores": {
+    "h": 14,
+    "hi": 2,
+    "lo": [
+     [
+      0.62,
+      0
+     ],
+     [
+      null,
+      1
+     ]
+    ]
+   },
+   "noe": {
+    "h": 14,
+    "hi": 2,
+    "lo": [
+     [
+      0.62,
+      0
+     ],
+     [
+      null,
+      1
+     ]
+    ]
+   },
+   "twinpeaks": {
+    "h": 14,
+    "hi": 2,
+    "lo": [
+     [
+      0.62,
+      0
+     ],
+     [
+      null,
+      1
+     ]
+    ]
+   },
+   "mission": {
+    "h": 14,
+    "hi": 2,
+    "lo": [
+     [
+      0.4,
+      0
+     ],
+     [
+      0.85,
+      1
+     ],
+     [
+      null,
+      5
+     ]
+    ]
+   },
+   "presidio": {
+    "lo": [
+     [
+      0.6,
+      5
+     ],
+     [
+      null,
+      1
+     ]
+    ]
+   },
+   "richmond": {
+    "h": 14,
+    "hi": 2,
+    "lo": [
+     [
+      0.22,
+      0
+     ],
+     [
+      null,
+      1
+     ]
+    ]
+   },
+   "seacliff": {
+    "h": 17,
+    "hi": 2,
+    "lo": 1
+   },
+   "sausalito": {
+    "h": 14,
+    "hi": 2,
+    "lo": [
+     [
+      0.3,
+      0
+     ],
+     [
+      null,
+      1
+     ]
+    ]
+   }
+  },
+  "seaMask": {
+   "x0": -11264,
+   "z0": -3800,
+   "cell": 64,
+   "nx": 226,
+   "nz": 140
+  },
+  "outsideSea": [
+   [
+    [
+     "z",
+     "<",
+     "z0"
+    ]
+   ],
+   [
+    [
+     "x",
+     "<",
+     "x0"
+    ]
+   ],
+   [
+    [
+     "x",
+     ">",
+     "x1"
+    ],
+    [
+     "z",
+     "<",
+     2600
+    ]
+   ]
+  ],
+  "seeds": "tools/place/sf/round39_bake.json",
+  "seedsRt": "tools/place/sf/round39_rt.json"
+ },
+ "features": {
+  "landmarks": true,
+  "highways": true,
+  "bridges": true,
+  "tunnels": true,
+  "distant": true,
+  "cable": true,
+  "crissy": true,
+  "trench": true,
+  "local": true
+ }
+}

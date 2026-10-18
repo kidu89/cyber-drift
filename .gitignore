@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+.npm
+
+# Built binaries & archives
+CyberDrift-SF-Overdrive.apk
+*.apk
+*.ipa
+Payload/
+www/
+
+# Android build outputs
+android/app/build/
+android/.gradle/
+android/local.properties
+android/app/src/main/assets/public/
+
+# iOS build outputs
+ios/App/build/
+ios/App/DerivedData/
+ios/App/App.xcarchive
+ios/App/App/public/
+
+# Temporary & system files
+.DS_Store
+Thumbs.db
+*.log

@@ -1,0 +1,1088 @@
+[
+  {
+    "type": "childList",
+    "target": "html:nth-child(1)",
+    "addedNodes": [
+      "SCRIPT"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359461
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1)",
+    "addedNodes": [
+      "HEAD"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359461
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359461
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "META"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359461
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359461
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "META"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359461
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359462
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "META"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359462
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359462
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "LINK"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359462
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359462
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "LINK"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359462
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359462
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "META"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359462
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359462
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "META"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359462
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359462
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "META"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359462
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359462
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "META"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359462
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359462
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "SCRIPT"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359462
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2) > script:nth-child(10)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359462
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359462
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "SCRIPT"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359462
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2) > script:nth-child(11)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359462
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359466
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "TITLE"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359466
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2) > title:nth-child(12)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359466
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359466
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "META"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359466
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359466
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "META"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359466
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359466
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "META"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "META"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "META"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "META"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "META"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "META"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "LINK"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "LINK"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "LINK"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "LINK"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "META"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "META"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "META"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "META"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "META"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "META"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "LINK"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "LINK"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "STYLE"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2) > style:nth-child(33)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "STYLE"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2) > style:nth-child(34)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1)",
+    "addedNodes": [
+      "BODY"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > body:nth-child(3)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359467
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "SCRIPT"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359470
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [],
+    "removedNodes": [
+      "SCRIPT"
+    ],
+    "timestamp": 1792257359470
+  },
+  {
+    "type": "childList",
+    "target": "script:nth-child(1)",
+    "addedNodes": [],
+    "removedNodes": [
+      "#text"
+    ],
+    "timestamp": 1792257359470
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > body:nth-child(3)",
+    "addedNodes": [
+      "DIV"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359473
+  },
+  {
+    "type": "childList",
+    "target": "div#mb-splash",
+    "addedNodes": [
+      "IMG"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359473
+  },
+  {
+    "type": "childList",
+    "target": "div#mb-splash",
+    "addedNodes": [
+      "IMG"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359473
+  },
+  {
+    "type": "childList",
+    "target": "div#mb-splash",
+    "addedNodes": [
+      "IMG"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359473
+  },
+  {
+    "type": "childList",
+    "target": "div#mb-splash",
+    "addedNodes": [
+      "P"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359473
+  },
+  {
+    "type": "childList",
+    "target": "div#mb-splash > p:nth-child(4)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359473
+  },
+  {
+    "type": "childList",
+    "target": "div#mb-splash",
+    "addedNodes": [
+      "DIV"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359473
+  },
+  {
+    "type": "childList",
+    "target": "div#mb-blocks",
+    "addedNodes": [
+      "I"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359473
+  },
+  {
+    "type": "childList",
+    "target": "div#mb-blocks",
+    "addedNodes": [
+      "I"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359473
+  },
+  {
+    "type": "childList",
+    "target": "div#mb-blocks",
+    "addedNodes": [
+      "I"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359473
+  },
+  {
+    "type": "childList",
+    "target": "div#mb-blocks",
+    "addedNodes": [
+      "I"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359473
+  },
+  {
+    "type": "childList",
+    "target": "div#mb-blocks",
+    "addedNodes": [
+      "I"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359473
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > body:nth-child(3)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359473
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > body:nth-child(3)",
+    "addedNodes": [
+      "SCRIPT"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359473
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > body:nth-child(3)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359997
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > body:nth-child(3)",
+    "addedNodes": [
+      "DIV"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359997
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > body:nth-child(3)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359997
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > body:nth-child(3)",
+    "addedNodes": [
+      "SCRIPT"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257359997
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > body:nth-child(3)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257360000
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > body:nth-child(3)",
+    "addedNodes": [
+      "DIV"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257360000
+  },
+  {
+    "type": "childList",
+    "target": "div#mb-feed",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257360000
+  },
+  {
+    "type": "childList",
+    "target": "div#mb-feed",
+    "addedNodes": [
+      "SECTION"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257360000
+  },
+  {
+    "type": "childList",
+    "target": "div#mb-feed > section:nth-child(1)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257360000
+  },
+  {
+    "type": "childList",
+    "target": "div#mb-feed > section:nth-child(1)",
+    "addedNodes": [
+      "IFRAME"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257360000
+  },
+  {
+    "type": "childList",
+    "target": "div#mb-feed > section:nth-child(1)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257360000
+  },
+  {
+    "type": "childList",
+    "target": "div#mb-feed",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257360000
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > body:nth-child(3)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257360000
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > body:nth-child(3)",
+    "addedNodes": [
+      "SCRIPT"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257360000
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > body:nth-child(3) > script:nth-child(6)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257360000
+  },
+  {
+    "type": "attributes",
+    "target": "img#mb-art",
+    "addedNodes": [],
+    "removedNodes": [],
+    "timestamp": 1792257360001
+  },
+  {
+    "type": "attributes",
+    "target": "img#mb-face",
+    "addedNodes": [],
+    "removedNodes": [],
+    "timestamp": 1792257360001
+  },
+  {
+    "type": "attributes",
+    "target": "div#mb-splash",
+    "addedNodes": [],
+    "removedNodes": [],
+    "timestamp": 1792257360001
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > body:nth-child(3)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257360001
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > body:nth-child(3)",
+    "addedNodes": [
+      "SCRIPT"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257360001
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > body:nth-child(3)",
+    "addedNodes": [
+      "#text"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257360001
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > body:nth-child(3)",
+    "addedNodes": [
+      "IFRAME"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257360020
+  },
+  {
+    "type": "childList",
+    "target": "html:nth-child(1) > head:nth-child(2)",
+    "addedNodes": [
+      "STYLE"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257360040
+  },
+  {
+    "type": "attributes",
+    "target": "html:nth-child(1)",
+    "addedNodes": [],
+    "removedNodes": [],
+    "timestamp": 1792257360040
+  },
+  {
+    "type": "childList",
+    "target": "div#mb-rail-root",
+    "addedNodes": [
+      "DIV"
+    ],
+    "removedNodes": [],
+    "timestamp": 1792257361001
+  },
+  {
+    "type": "attributes",
+    "target": "div#mb-splash",
+    "addedNodes": [],
+    "removedNodes": [],
+    "timestamp": 1792257361914
+  },
+  {
+    "type": "attributes",
+    "target": "div#mb-splash",
+    "addedNodes": [],
+    "removedNodes": [],
+    "timestamp": 1792257369179
+  }
+]

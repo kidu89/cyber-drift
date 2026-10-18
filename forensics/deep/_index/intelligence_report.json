@@ -1,0 +1,6 @@
+{
+  "trackers": [],
+  "endpoints": [
+    "https://api.mindblown.ai/events"
+  ]
+}

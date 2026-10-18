@@ -1,0 +1,4 @@
+{
+  "tokens_image": { "value": 0, "min": 0, "max": 10000000, "step": 1000, "label": "Tokens one AI picture costs (0: not known)" },
+  "tokens_car": { "value": 0, "min": 0, "max": 10000000, "step": 1000, "label": "Tokens one AI car costs (0: not known)" }
+}

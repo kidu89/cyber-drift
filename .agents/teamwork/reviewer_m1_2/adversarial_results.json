@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Binary 1: .bin.gz with browser Accept-Encoding gzip/br does NOT send Content-Encoding: gzip",
+    "pass": true
+  },
+  {
+    "name": "Binary 2: Transparent fallback .bin -> .bin.gz matches disk .bin.gz byte-for-byte",
+    "pass": true
+  },
+  {
+    "name": "Binary 3: Non-existent .bin file without .gz returns 404",
+    "pass": true
+  },
+  {
+    "name": "Audio Range 1: Suffix range bytes=-100 (last 100 bytes)",
+    "pass": true
+  },
+  {
+    "name": "Audio Range 2: Suffix range larger than total file bytes=-999999",
+    "pass": true
+  },
+  {
+    "name": "Audio Range 3: Inverted range bytes=500-200 returns HTTP 416",
+    "pass": true
+  },
+  {
+    "name": "Audio Range 4: Out of bounds range bytes=500000-600000 returns HTTP 416",
+    "pass": true
+  },
+  {
+    "name": "Audio Range 5: Range beyond file size bytes=500000- returns HTTP 416",
+    "pass": true
+  },
+  {
+    "name": "Audio Range 6: Exact single byte range bytes=0-0",
+    "pass": true
+  },
+  {
+    "name": "Security 1: URL-encoded traversal /%2e%2e%2fpackage.json returns 403",
+    "pass": true
+  },
+  {
+    "name": "Security 2: Double dot backslash traversal /..\\package.json returns 403",
+    "pass": true
+  },
+  {
+    "name": "Security 3: Malformed percent encoding /%FF%FE returns 400 Bad Request",
+    "pass": true
+  },
+  {
+    "name": "Security 4: Query parameters and hash /index.html?v=123&foo=bar returns 200",
+    "pass": true
+  },
+  {
+    "name": "Security 5: HEAD request returns headers with no body",
+    "pass": true
+  },
+  {
+    "name": "EADDRINUSE Multi-step: increment through 2 consecutively occupied ports",
+    "pass": true
+  }
+]

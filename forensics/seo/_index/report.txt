@@ -1,0 +1,24 @@
+SEO REPORT - https://teleoperator.mindblown.ai/
+Title: Teleoperator
+
+--- META TAGS ---
+viewport: width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no, maximum-scale=1
+theme-color: #0f0f10
+mobile-web-app-capable: yes
+apple-mobile-web-app-capable: yes
+apple-mobile-web-app-status-bar-style: black-translucent
+apple-mobile-web-app-title: Teleoperator
+og:title: Teleoperator
+twitter:title: Teleoperator
+description: Drive a real city with friends: open a room, send the link, everybody in their own robotaxi or supercar, their mindblown name over it. Real-time WebGPU.
+og:description: Drive a real city with friends: open a room, send the link, everybody in their own robotaxi or supercar, their mindblown name over it. Real-time WebGPU.
+twitter:description: Drive a real city with friends: open a room, send the link, everybody in their own robotaxi or supercar, their mindblown name over it. Real-time WebGPU.
+og:image: https://mindblown-prod-public.s3.us-east-1.amazonaws.com/game-art/0e37f38c-08f2-47e1-97c5-9351f91eb66c/thumbnail-d6b4483ab22cbfb5.jpg
+twitter:image: https://mindblown-prod-public.s3.us-east-1.amazonaws.com/game-art/0e37f38c-08f2-47e1-97c5-9351f91eb66c/thumbnail-d6b4483ab22cbfb5.jpg
+og:url: https://teleoperator.mindblown.ai/
+og:type: website
+og:site_name: mindblown
+twitter:card: player
+twitter:player: https://teleoperator.mindblown.ai/?s=x
+twitter:player:width: 480
+twitter:player:height: 480

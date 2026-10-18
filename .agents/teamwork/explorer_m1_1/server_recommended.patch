@@ -1,0 +1,39 @@
+--- server.js
++++ server.js
+@@ -63,1 +63,1 @@
+-            console.log(\`[Architect] Mocking \${req.method} \${pathname}\`);
++            console.log(`[Architect] Mocking ${req.method} ${pathname}`);
+@@ -93,1 +93,1 @@
+-        res.end(\`404 Not Found: \${pathname}\`);
++        res.end(`404 Not Found: ${pathname}`);
+@@ -109,1 +109,1 @@
+-            'Content-Range': \`bytes \${start}-\${end}/\${stat.size}\`,
++            'Content-Range': `bytes ${start}-${end}/${stat.size}`,
+@@ -129,1 +129,1 @@
+-            console.log(\`Port \${port} is in use, trying \${port + 1}...\`);
++            console.log(`Port ${port} is in use, trying ${port + 1}...`);
+@@ -137,1 +137,1 @@
+-        const gameUrl = \`http://localhost:\${port}\`;
++        const gameUrl = `http://localhost:${port}`;
+@@ -140,1 +140,1 @@
+-        console.log(\`  URL: \${gameUrl}\`);
++        console.log(`  URL: ${gameUrl}`);
+@@ -144,3 +144,5 @@
+-        const startCmd = process.platform === 'win32' ? 'start' : process.platform === 'darwin' ? 'open' : 'xdg-open';
+-        exec(\`\${startCmd} \${gameUrl}\`);
++        if (!process.env.NO_OPEN) {
++            const startCmd = process.platform === 'win32' ? 'start' : process.platform === 'darwin' ? 'open' : 'xdg-open';
++            exec(`${startCmd} ${gameUrl}`);
++        }
+     });
+ }
+@@ -149,1 +151,8 @@
+-startServer(DEFAULT_PORT);
++if (require.main === module) {
++    startServer(DEFAULT_PORT);
++}
++
++module.exports = server;
++server.server = server;
++server.startServer = startServer;
++server.MIME_TYPES = MIME_TYPES;

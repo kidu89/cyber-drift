@@ -1,0 +1,1 @@
+Use mutation_log.json with a compatible MutationReplayer to see how the DOM was constructed.

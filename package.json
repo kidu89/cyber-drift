@@ -1,0 +1,22 @@
+{
+  "name": "webpulls-clone",
+  "version": "1.0.0",
+  "description": "Auto-generated local mirror",
+  "main": "electron_main.js",
+  "scripts": {
+    "start": "node server.js",
+    "build:www": "node prepare_www.js",
+    "sync:ios": "node prepare_www.js && npx cap sync ios",
+    "sync:android": "node prepare_www.js && node cleanup_www_gz.js && npx cap sync android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.5.3",
+    "@capacitor/cli": "^8.5.3",
+    "@capacitor/core": "^8.5.3",
+    "@capacitor/ios": "^8.5.3",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "electron": "^28.0.0"
+  }
+}

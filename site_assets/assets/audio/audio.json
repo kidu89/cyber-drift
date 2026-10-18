@@ -1,0 +1,1261 @@
+{
+ "sounds": {
+  "spray": {
+   "file": "spray.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 5.082,
+   "corr": 0.099,
+   "dur": 5.18
+  },
+  "horn_a": {
+   "file": "horn_a.mp3",
+   "dur": 1.19
+  },
+  "horn_b": {
+   "file": "horn_b.mp3",
+   "dur": 2.0
+  },
+  "bell": {
+   "file": "bell.mp3",
+   "dur": 3.0
+  },
+  "rain": {
+   "file": "rain.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 19.27342,
+   "corr": 0.099,
+   "dur": 19.37
+  },
+  "horn_a_1": {
+   "file": "horn_a_1.mp3",
+   "dur": 1.48
+  },
+  "horn_b_1": {
+   "file": "horn_b_1.mp3",
+   "dur": 2.0
+  },
+  "bell_1": {
+   "file": "bell_1.mp3",
+   "dur": 2.99
+  },
+  "pass_car": {
+   "file": "pass_car.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 6.6829,
+   "corr": 0.576,
+   "dur": 6.78
+  },
+  "pass_truck": {
+   "file": "pass_truck.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 7.17442,
+   "corr": 0.453,
+   "dur": 7.27
+  },
+  "whoosh": {
+   "file": "whoosh.mp3",
+   "dur": 1.27
+  },
+  "whoosh_1": {
+   "file": "whoosh_1.mp3",
+   "dur": 1.21
+  },
+  "whoosh_2": {
+   "file": "whoosh_2.mp3",
+   "dur": 1.3
+  },
+  "ui_click": {
+   "file": "ui_click.mp3",
+   "dur": 0.48
+  },
+  "ui_open": {
+   "file": "ui_open.mp3",
+   "dur": 0.8
+  },
+  "ui_close": {
+   "file": "ui_close.mp3",
+   "dur": 0.47
+  },
+  "city_bed": {
+   "file": "city_bed.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 28.7293,
+   "corr": 0.544,
+   "dur": 28.83
+  },
+  "bay_bed": {
+   "file": "bay_bed.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 27.74277,
+   "corr": 0.227,
+   "dur": 27.84
+  },
+  "gull": {
+   "file": "gull.mp3",
+   "dur": 2.43
+  },
+  "gull_1": {
+   "file": "gull_1.mp3",
+   "dur": 2.41
+  },
+  "foghorn": {
+   "file": "foghorn.mp3",
+   "dur": 3.49
+  },
+  "eng_idle": {
+   "file": "apex/engine-idle.wav",
+   "dur": 3.7,
+   "source": "apex-city",
+   "rpm": 1000,
+   "throttle": "on"
+  },
+  "eng_2000": {
+   "file": "apex/engine-2000.wav",
+   "dur": 0.825,
+   "source": "apex-city",
+   "rpm": 2000,
+   "throttle": "on"
+  },
+  "eng_3500": {
+   "file": "apex/engine-3500.wav",
+   "dur": 0.42,
+   "source": "apex-city",
+   "rpm": 3500,
+   "throttle": "on"
+  },
+  "eng_5500": {
+   "file": "apex/engine-5500.wav",
+   "dur": 1.511,
+   "source": "apex-city",
+   "rpm": 5500,
+   "throttle": "on"
+  },
+  "eng_8000": {
+   "file": "apex/engine-8000.wav",
+   "dur": 1.05,
+   "source": "apex-city",
+   "rpm": 8000,
+   "throttle": "on"
+  },
+  "eng_coast": {
+   "file": "apex/engine-coast.wav",
+   "dur": 1.336,
+   "source": "apex-city",
+   "rpm": 5500,
+   "throttle": "off"
+  },
+  "road": {
+   "file": "apex/recorded-road.wav",
+   "dur": 11.55,
+   "source": "apex-city"
+  },
+  "skid": {
+   "file": "apex/recorded-skid.wav",
+   "dur": 0.47,
+   "source": "apex-city"
+  },
+  "impact": {
+   "file": "apex/collision-impact.wav",
+   "dur": 1.504,
+   "source": "apex-city"
+  },
+  "scrape": {
+   "file": "apex/collision-scrape.wav",
+   "dur": 1.23,
+   "source": "apex-city"
+  },
+  "ir_street": {
+   "file": "ir_street.wav",
+   "dur": 1.1,
+   "source": "ir"
+  },
+  "ir_tunnel": {
+   "file": "ir_tunnel.wav",
+   "dur": 3.0,
+   "source": "ir"
+  },
+  "backfire": {
+   "file": "backfire.mp3",
+   "dur": 0.35
+  },
+  "backfire_1": {
+   "file": "backfire_1.mp3",
+   "dur": 0.4
+  },
+  "backfire_2": {
+   "file": "backfire_2.mp3",
+   "dur": 0.44
+  },
+  "tunnel_amb": {
+   "file": "tunnel_amb.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 12.67297,
+   "corr": 0.575,
+   "dur": 12.77
+  },
+  "crack": {
+   "file": "crack.mp3",
+   "dur": 0.28
+  },
+  "crack_1": {
+   "file": "crack_1.mp3",
+   "dur": 0.45
+  },
+  "crack_2": {
+   "file": "crack_2.mp3",
+   "dur": 0.4
+  },
+  "airflow": {
+   "file": "airflow.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 11.32104,
+   "corr": 0.295,
+   "dur": 11.42
+  },
+  "crk": {
+   "file": "crk.mp3",
+   "dur": 0.11
+  },
+  "crk_1": {
+   "file": "crk_1.mp3",
+   "dur": 0.14
+  },
+  "crk_2": {
+   "file": "crk_2.mp3",
+   "dur": 0.11
+  },
+  "crk_3": {
+   "file": "crk_3.mp3",
+   "dur": 0.13
+  },
+  "taxi_chime": {
+   "file": "taxi_chime.mp3",
+   "dur": 1.48
+  },
+  "taxi_done": {
+   "file": "taxi_done.mp3",
+   "dur": 1.76
+  },
+  "car_door": {
+   "file": "car_door.mp3",
+   "dur": 0.56
+  },
+  "fare_ding": {
+   "file": "fare_ding.mp3",
+   "dur": 1.0
+  },
+  "ev_mot_lo": {
+   "file": "ev_mot_lo.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 8.95338,
+   "corr": 0.414,
+   "dur": 9.05
+  },
+  "ev_mot_mid": {
+   "file": "ev_mot_mid.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 8.87077,
+   "corr": 0.599,
+   "dur": 8.97
+  },
+  "ev_mot_hi": {
+   "file": "ev_mot_hi.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 8.82642,
+   "corr": 0.23,
+   "dur": 8.93
+  },
+  "ev_tyre_lo": {
+   "file": "ev_tyre_lo.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 8.98587,
+   "corr": 0.37,
+   "dur": 9.09
+  },
+  "ev_tyre_mid": {
+   "file": "ev_tyre_mid.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 8.82964,
+   "corr": 0.564,
+   "dur": 8.93
+  },
+  "ev_tyre_hi": {
+   "file": "ev_tyre_hi.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 8.80224,
+   "corr": 0.264,
+   "dur": 8.9
+  },
+  "ev_avas": {
+   "file": "ev_avas.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 8.9666,
+   "corr": 0.444,
+   "dur": 9.07
+  },
+  "ev_bump": {
+   "file": "ev_bump.mp3",
+   "dur": 0.48
+  },
+  "ev_bump_1": {
+   "file": "ev_bump_1.mp3",
+   "dur": 0.46
+  },
+  "ev_bump_2": {
+   "file": "ev_bump_2.mp3",
+   "dur": 0.59
+  },
+  "ev_wind2": {
+   "file": "ev_wind2.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 11.01426,
+   "corr": 0.106,
+   "dur": 11.11
+  },
+  "ev_regen2": {
+   "file": "ev_regen2.mp3",
+   "dur": 2.44
+  },
+  "cc_mot_lo": {
+   "file": "cc_mot_lo.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 9.05612,
+   "corr": 0.666,
+   "dur": 9.16
+  },
+  "cc_mot_mid": {
+   "file": "cc_mot_mid.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 9.25358,
+   "corr": 0.706,
+   "dur": 9.35
+  },
+  "cc_tyre_lo": {
+   "file": "cc_tyre_lo.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 9.40041,
+   "corr": 0.47,
+   "dur": 9.5
+  },
+  "cc_tyre_mid": {
+   "file": "cc_tyre_mid.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 9.08594,
+   "corr": 0.614,
+   "dur": 9.19
+  },
+  "cc_tyre_hi": {
+   "file": "cc_tyre_hi.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 9.40569,
+   "corr": 0.581,
+   "dur": 9.51
+  },
+  "cc_wind": {
+   "file": "cc_wind.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 11.30247,
+   "corr": 0.748,
+   "dur": 11.4
+  },
+  "cc_avas": {
+   "file": "cc_avas.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 8.80286,
+   "corr": 0.595,
+   "dur": 8.9
+  },
+  "cc_regen": {
+   "file": "cc_regen.mp3",
+   "dur": 2.46
+  },
+  "cc_mot_hi": {
+   "file": "cc_mot_hi.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 8.99621,
+   "corr": 0.474,
+   "dur": 9.1
+  },
+  "cc_bump": {
+   "file": "cc_bump.mp3",
+   "dur": 0.24
+  },
+  "cc_bump_1": {
+   "file": "cc_bump_1.mp3",
+   "dur": 0.3
+  },
+  "cc_bump_2": {
+   "file": "cc_bump_2.mp3",
+   "dur": 0.61
+  },
+  "ev_crash": {
+   "file": "ev_crash.mp3",
+   "dur": 0.37
+  },
+  "ev_crash_1": {
+   "file": "ev_crash_1.mp3",
+   "dur": 0.41
+  },
+  "ev_crash_2": {
+   "file": "ev_crash_2.mp3",
+   "dur": 0.42
+  },
+  "ev_scrape": {
+   "file": "ev_scrape.mp3",
+   "dur": 1.93
+  },
+  "ev_scrape_1": {
+   "file": "ev_scrape_1.mp3",
+   "dur": 1.74
+  },
+  "ev_squeal": {
+   "file": "ev_squeal.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 5.57435,
+   "corr": 0.438,
+   "dur": 5.67
+  },
+  "irr_street": {
+   "file": "irr_street.wav",
+   "source": "elevenlabs-ir",
+   "dur": 2.0
+  },
+  "irr_tunnel": {
+   "file": "irr_tunnel.wav",
+   "source": "elevenlabs-ir",
+   "dur": 4.0
+  },
+  "ev_regen2_1": {
+   "file": "ev_regen2_1.mp3",
+   "dur": 2.41
+  },
+  "cc_regen_1": {
+   "file": "cc_regen_1.mp3",
+   "dur": 2.44
+  },
+  "p39_bed": {
+   "file": "p39_bed.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 27.55293,
+   "corr": 0.497,
+   "dur": 27.65
+  },
+  "p39_lions": {
+   "file": "p39_lions.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 22.1188,
+   "corr": 0.34,
+   "dur": 22.22
+  },
+  "tyre_scrub": {
+   "file": "tyre_scrub.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 9.0924,
+   "corr": 0.105,
+   "dur": 9.19
+  },
+  "tyre_squeal": {
+   "file": "tyre_squeal.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 8.95401,
+   "corr": 0.223,
+   "dur": 9.05
+  },
+  "zr_idle": {
+   "file": "zr_idle.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 7.72195,
+   "corr": 0.871,
+   "rpm": 1000,
+   "nominal": 1000,
+   "throttle": "on",
+   "tonal": false,
+   "set": "zr",
+   "dur": 7.82
+  },
+  "zr_2000": {
+   "file": "zr_2000.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 7.84853,
+   "corr": 0.784,
+   "rpm": 2000,
+   "nominal": 2000,
+   "throttle": "on",
+   "tonal": false,
+   "set": "zr",
+   "dur": 7.95
+  },
+  "zr_3500": {
+   "file": "zr_3500.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 8.01424,
+   "corr": 0.631,
+   "rpm": 3500,
+   "nominal": 3500,
+   "throttle": "on",
+   "tonal": false,
+   "set": "zr",
+   "dur": 8.11
+  },
+  "zr_5500": {
+   "file": "zr_5500.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 1.37902,
+   "corr": 0.7,
+   "rpm": 5500,
+   "nominal": 5500,
+   "throttle": "on",
+   "tonal": false,
+   "set": "zr",
+   "dur": 1.48
+  },
+  "zr_7500": {
+   "file": "zr_7500.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 2.88859,
+   "corr": 0.366,
+   "rpm": 7500,
+   "nominal": 7500,
+   "throttle": "on",
+   "tonal": false,
+   "set": "zr",
+   "dur": 2.99
+  },
+  "zr_coast": {
+   "file": "zr_coast.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 8.688,
+   "corr": 0.599,
+   "rpm": 5000,
+   "nominal": 5000,
+   "throttle": "off",
+   "tonal": false,
+   "set": "zr",
+   "dur": 8.79
+  },
+  "tyre_corner": {
+   "file": "tyre_corner.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 9.29422,
+   "corr": 0.15,
+   "dur": 9.39
+  },
+  "tyre_drift": {
+   "file": "tyre_drift.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 9.44302,
+   "corr": 0.255,
+   "dur": 9.54
+  },
+  "brake_firm": {
+   "file": "brake_firm.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 7.1566,
+   "corr": 0.406,
+   "dur": 7.26
+  },
+  "brake_lock": {
+   "file": "brake_lock.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 6.83816,
+   "corr": 0.218,
+   "dur": 6.94
+  },
+  "brake_dive": {
+   "file": "brake_dive.mp3",
+   "dur": 0.28
+  },
+  "brake_dive_1": {
+   "file": "brake_dive_1.mp3",
+   "dur": 0.38
+  },
+  "ct_mot_lo": {
+   "file": "ct_mot_lo.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 9.14619,
+   "corr": 0.586,
+   "dur": 9.25
+  },
+  "ct_mot_mid": {
+   "file": "ct_mot_mid.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 9.44011,
+   "corr": 0.675,
+   "dur": 9.54
+  },
+  "ct_mot_hi": {
+   "file": "ct_mot_hi.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 9.23163,
+   "corr": 0.473,
+   "dur": 9.33
+  },
+  "ct_tyre_lo": {
+   "file": "ct_tyre_lo.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 8.93968,
+   "corr": 0.652,
+   "dur": 9.04
+  },
+  "ct_tyre_mid": {
+   "file": "ct_tyre_mid.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 8.92188,
+   "corr": 0.764,
+   "dur": 9.02
+  },
+  "ct_tyre_hi": {
+   "file": "ct_tyre_hi.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 8.83789,
+   "corr": 0.519,
+   "dur": 8.94
+  },
+  "ct_wind": {
+   "file": "ct_wind.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 10.81474,
+   "corr": 0.789,
+   "dur": 10.91
+  },
+  "ct_avas": {
+   "file": "ct_avas.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 8.89331,
+   "corr": 0.39,
+   "dur": 8.99
+  },
+  "ct_regen": {
+   "file": "ct_regen.mp3",
+   "dur": 2.45
+  },
+  "ct_regen_1": {
+   "file": "ct_regen_1.mp3",
+   "dur": 2.47
+  },
+  "ct_bump": {
+   "file": "ct_bump.mp3",
+   "dur": 0.44
+  },
+  "ct_bump_1": {
+   "file": "ct_bump_1.mp3",
+   "dur": 0.46
+  },
+  "ct_bump_2": {
+   "file": "ct_bump_2.mp3",
+   "dur": 0.53
+  },
+  "cop_wail": {
+   "file": "cop_wail.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 5.29506,
+   "corr": 1.0,
+   "dur": 5.4,
+   "source": "freesound-cc0",
+   "license": "CC0 1.0 (public domain dedication)",
+   "author": "ThePeasantJoe",
+   "title": "SS2000_wail_seamless",
+   "url": "https://freesound.org/people/ThePeasantJoe/sounds/800708/",
+   "note": "one wail cycle, looped"
+  },
+  "cop_yelp": {
+   "file": "cop_yelp.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 3.13293,
+   "corr": 1.0,
+   "dur": 3.23,
+   "source": "freesound-cc0",
+   "license": "CC0 1.0 (public domain dedication)",
+   "author": "Jefflix",
+   "title": "Whelen Yelp.wav",
+   "url": "https://freesound.org/people/Jefflix/sounds/157866/",
+   "note": "eight yelp cycles, looped"
+  },
+  "cop_chirp": {
+   "file": "cop_chirp.mp3",
+   "dur": 0.8,
+   "source": "freesound-cc0",
+   "license": "CC0 1.0 (public domain dedication)",
+   "author": "Jefflix",
+   "title": "Whelen Yelp.wav",
+   "url": "https://freesound.org/people/Jefflix/sounds/157866/",
+   "note": "two yelp cycles: the whoop"
+  },
+  "cop_horn": {
+   "file": "cop_horn.mp3",
+   "dur": 0.55,
+   "source": "freesound-cc0",
+   "license": "CC0 1.0 (public domain dedication)",
+   "author": "Jefflix",
+   "title": "Whelen Horn.wav",
+   "url": "https://freesound.org/people/Jefflix/sounds/157869/",
+   "note": "a short air-horn blast"
+  },
+  "cop_pa": {
+   "file": "cop_pa.mp3",
+   "dur": 0.91,
+   "source": "freesound-cc0",
+   "license": "CC0 1.0 (public domain dedication)",
+   "author": "conleec",
+   "title": "MISC_Police_PA_Officer_Speaking_001.wav",
+   "url": "https://freesound.org/people/conleec/sounds/159749/",
+   "note": "a PA phrase"
+  },
+  "cop_pa_1": {
+   "file": "cop_pa_1.mp3",
+   "dur": 0.88,
+   "source": "freesound-cc0",
+   "license": "CC0 1.0 (public domain dedication)",
+   "author": "conleec",
+   "title": "MISC_Police_PA_Officer_Speaking_001.wav",
+   "url": "https://freesound.org/people/conleec/sounds/159749/",
+   "note": "a PA phrase"
+  },
+  "cop_pa_2": {
+   "file": "cop_pa_2.mp3",
+   "dur": 1.35,
+   "source": "freesound-cc0",
+   "license": "CC0 1.0 (public domain dedication)",
+   "author": "conleec",
+   "title": "MISC_Police_PA_Officer_Speaking_001.wav",
+   "url": "https://freesound.org/people/conleec/sounds/159749/",
+   "note": "a PA phrase"
+  },
+  "cop_radio": {
+   "file": "cop_radio.mp3",
+   "dur": 0.19,
+   "source": "freesound-cc0",
+   "license": "CC0 1.0 (public domain dedication)",
+   "author": "jimmefer",
+   "title": "Police Radio Chirp",
+   "url": "https://freesound.org/people/jimmefer/sounds/825989/",
+   "note": "the radio's go-ahead chirp"
+  },
+  "heli_loop": {
+   "file": "heli_loop.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 4.93011,
+   "corr": 0.534,
+   "dur": 5.03,
+   "source": "freesound-cc0",
+   "license": "CC0 1.0 (public domain dedication)",
+   "author": "TRP",
+   "title": "Helicopter overhead pass pretty good 77mel 190404.flac",
+   "url": "https://freesound.org/people/TRP/sounds/573941/",
+   "note": "the rotor near overhead (13.2 s into the take), looped"
+  },
+  "heli_near": {
+   "file": "heli_near.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 2.13406,
+   "corr": 0.634,
+   "dur": 2.23,
+   "source": "freesound-cc0",
+   "license": "CC0 1.0 (public domain dedication)",
+   "author": "senorstudy",
+   "title": "Small Helicopter Takes Off",
+   "url": "https://freesound.org/people/senorstudy/sounds/172649/",
+   "note": "the rotor at power close by: the blades' slap and the turbine (138.2 s into the take), looped"
+  },
+  "f6_idle": {
+   "file": "f6_idle.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 2.32245,
+   "corr": 0.327,
+   "rpm": 1090,
+   "throttle": "on",
+   "set": "flat6",
+   "dur": 2.42,
+   "source": "freesound-cc0",
+   "license": "CC0 1.0 (public domain dedication)",
+   "author": "craigsmith",
+   "title": "S07-11 1972 Porsche in fast; idle; stop.wav",
+   "url": "https://freesound.org/people/craigsmith/sounds/675268/",
+   "used": [
+    10.2,
+    13.2
+   ],
+   "note": "the idle, held (pitch held: the window drifted 361 cents)"
+  },
+  "f6_5000": {
+   "file": "f6_5000.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 1.86,
+   "corr": 0.118,
+   "rpm": 5090,
+   "throttle": "on",
+   "set": "flat6",
+   "dur": 1.96,
+   "source": "freesound-cc0",
+   "license": "CC0 1.0 (public domain dedication)",
+   "author": "mharo",
+   "title": "porsche_911.wav",
+   "url": "https://freesound.org/people/mharo/sounds/55727/",
+   "used": [
+    3.8,
+    6.3
+   ],
+   "note": "pulling on into the upper band, held (pitch held: the window drifted 1092 cents)"
+  },
+  "f6_coast": {
+   "file": "f6_coast.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 0.91927,
+   "corr": 0.353,
+   "rpm": 2380,
+   "throttle": "off",
+   "set": "flat6",
+   "dur": 1.02,
+   "source": "freesound-cc0",
+   "license": "CC0 1.0 (public domain dedication)",
+   "author": "mmplisskin",
+   "title": "Porsche.MP3",
+   "url": "https://freesound.org/people/mmplisskin/sounds/90404/",
+   "used": [
+    5.95,
+    7.3
+   ],
+   "note": "a free rev falling away: the overrun, held (pitch held: the window drifted 445 cents)"
+  },
+  "f6_3500": {
+   "file": "f6_3500.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 1.40662,
+   "corr": 0.312,
+   "rpm": 2420,
+   "throttle": "on",
+   "set": "flat6",
+   "dur": 1.51,
+   "source": "freesound-cc0",
+   "license": "CC0 1.0 (public domain dedication)",
+   "author": "mharo",
+   "title": "porsche_911.wav",
+   "url": "https://freesound.org/people/mharo/sounds/55727/",
+   "used": [
+    1.8,
+    3.6
+   ],
+   "note": "pulling up the street, the middle band, held (pitch held: the window drifted 932 cents)"
+  },
+  "v12_idle": {
+   "file": "v12_idle.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 7.53519,
+   "corr": 0.345,
+   "rpm": 1070,
+   "throttle": "on",
+   "set": "v12",
+   "dur": 7.64,
+   "source": "freesound-cc0",
+   "license": "CC0 1.0 (public domain dedication)",
+   "author": "cheesepuff",
+   "title": "Lambo idle and rev.mp3",
+   "url": "https://freesound.org/people/cheesepuff/sounds/112075/",
+   "used": [
+    5.0,
+    14.0
+   ],
+   "note": "the V12 idling (steady: as recorded)"
+  },
+  "v12_coast": {
+   "file": "v12_coast.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 1.49961,
+   "corr": 0.158,
+   "rpm": 1050,
+   "throttle": "off",
+   "set": "v12",
+   "dur": 1.6,
+   "source": "freesound-cc0",
+   "license": "CC0 1.0 (public domain dedication)",
+   "author": "cheesepuff",
+   "title": "Lambo idle and rev.mp3",
+   "url": "https://freesound.org/people/cheesepuff/sounds/112075/",
+   "used": [
+    50.5,
+    52.2
+   ],
+   "note": "the revs falling after a blip: the overrun, held (pitch held: the window drifted 885 cents)"
+  },
+  "dsl_idle": {
+   "file": "dsl_idle.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 2.3768,
+   "corr": 0.47,
+   "rpm": 740,
+   "throttle": "on",
+   "set": "dsl",
+   "dur": 2.48,
+   "source": "freesound-cc0",
+   "license": "CC0 1.0 (public domain dedication)",
+   "author": "Alex_hears_things",
+   "title": "4WD Engine & Rev.wav",
+   "url": "https://freesound.org/people/Alex_hears_things/sounds/379914/",
+   "used": [
+    31.3,
+    34.6
+   ],
+   "note": "the diesel idling after its revs (steady: as recorded)"
+  },
+  "dsl_coast": {
+   "file": "dsl_coast.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 0.83717,
+   "corr": 0.253,
+   "rpm": 1390,
+   "throttle": "off",
+   "set": "dsl",
+   "dur": 0.94,
+   "source": "freesound-cc0",
+   "license": "CC0 1.0 (public domain dedication)",
+   "author": "Alex_hears_things",
+   "title": "4WD Engine & Rev.wav",
+   "url": "https://freesound.org/people/Alex_hears_things/sounds/379914/",
+   "used": [
+    26.6,
+    27.8
+   ],
+   "note": "the rev falling away: the overrun, held (pitch held: the window drifted 914 cents)"
+  },
+  "sml_idle": {
+   "file": "sml_idle.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 8.70773,
+   "corr": 0.458,
+   "rpm": 1030,
+   "throttle": "on",
+   "set": "sml",
+   "dur": 8.81,
+   "source": "freesound-cc0",
+   "license": "CC0 1.0 (public domain dedication)",
+   "author": "beskhu",
+   "title": "2CV 1.aif",
+   "url": "https://freesound.org/people/beskhu/sounds/273899/",
+   "used": [
+    5.0,
+    15.0
+   ],
+   "note": "the engine alone at a steady idle (steady: as recorded)"
+  },
+  "sml_coast": {
+   "file": "sml_coast.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 0.72531,
+   "corr": 0.329,
+   "rpm": 2840,
+   "throttle": "off",
+   "set": "sml",
+   "dur": 0.83,
+   "source": "freesound-cc0",
+   "license": "CC0 1.0 (public domain dedication)",
+   "author": "svenne2000",
+   "title": "2CV.wav",
+   "url": "https://freesound.org/people/svenne2000/sounds/395840/",
+   "used": [
+    3.75,
+    4.6
+   ],
+   "note": "lifting for the shift: the overrun, held (pitch held: the window drifted 679 cents)"
+  },
+  "v12_mid": {
+   "file": "v12_mid.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 1.34127,
+   "corr": 0.178,
+   "rpm": 1660,
+   "throttle": "on",
+   "set": "v12",
+   "dur": 1.44,
+   "source": "freesound-cc0",
+   "license": "CC0 1.0 (public domain dedication)",
+   "author": "cheesepuff",
+   "title": "Lambo idle and rev.mp3",
+   "url": "https://freesound.org/people/cheesepuff/sounds/112075/",
+   "used": [
+    48.9,
+    50.5
+   ],
+   "note": "a blip of the throttle at its peak, held (pitch held: the window drifted 950 cents)"
+  },
+  "v12_high": {
+   "file": "v12_high.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 1.97909,
+   "corr": 0.21,
+   "rpm": 2020,
+   "throttle": "on",
+   "set": "v12",
+   "dur": 2.08,
+   "source": "freesound-cc0",
+   "license": "CC0 1.0 (public domain dedication)",
+   "author": "cheesepuff",
+   "title": "Lambo idle and rev.mp3",
+   "url": "https://freesound.org/people/cheesepuff/sounds/112075/",
+   "used": [
+    60.2,
+    62.7
+   ],
+   "note": "the hardest rev, held (pitch held: the window drifted 938 cents)"
+  },
+  "dsl_mid": {
+   "file": "dsl_mid.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 7.53939,
+   "corr": 0.199,
+   "rpm": 1470,
+   "throttle": "on",
+   "set": "dsl",
+   "dur": 7.64,
+   "source": "freesound-cc0",
+   "license": "CC0 1.0 (public domain dedication)",
+   "author": "Alex_hears_things",
+   "title": "4WD Engine & Rev.wav",
+   "url": "https://freesound.org/people/Alex_hears_things/sounds/379914/",
+   "used": [
+    47.0,
+    55.0
+   ],
+   "note": "held at a raised speed (steady: as recorded)"
+  },
+  "dsl_high": {
+   "file": "dsl_high.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 1.31921,
+   "corr": 0.334,
+   "rpm": 3780,
+   "throttle": "on",
+   "set": "dsl",
+   "dur": 1.42,
+   "source": "freesound-cc0",
+   "license": "CC0 1.0 (public domain dedication)",
+   "author": "Mihacappy",
+   "title": "3008gtrevving.wav",
+   "url": "https://freesound.org/people/Mihacappy/sounds/865222/",
+   "used": [
+    16.9,
+    18.6
+   ],
+   "note": "a full-throttle rev near its top, held (pitch held: the window drifted 578 cents)"
+  },
+  "sml_mid": {
+   "file": "sml_mid.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 10.09088,
+   "corr": 0.467,
+   "rpm": 2000,
+   "throttle": "on",
+   "set": "sml",
+   "dur": 10.19,
+   "source": "freesound-cc0",
+   "license": "CC0 1.0 (public domain dedication)",
+   "author": "beskhu",
+   "title": "2CV 2.aif",
+   "url": "https://freesound.org/people/beskhu/sounds/273898/",
+   "used": [
+    2.0,
+    14.0
+   ],
+   "note": "the engine alone at a raised speed (steady: as recorded)"
+  },
+  "sml_high": {
+   "file": "sml_high.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 2.32351,
+   "corr": 0.804,
+   "rpm": 2940,
+   "throttle": "on",
+   "set": "sml",
+   "dur": 2.42,
+   "source": "freesound-cc0",
+   "license": "CC0 1.0 (public domain dedication)",
+   "author": "svenne2000",
+   "title": "2CV.wav",
+   "url": "https://freesound.org/people/svenne2000/sounds/395840/",
+   "used": [
+    0.4,
+    3.5
+   ],
+   "note": "pulling through a gear, held (pitch held: the window drifted 1285 cents)"
+  },
+  "rd_mot_lo": {
+   "file": "rd_mot_lo.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 9.43,
+   "corr": 0.074,
+   "dur": 9.53
+  },
+  "rd_mot_mid": {
+   "file": "rd_mot_mid.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 9.15717,
+   "corr": 0.266,
+   "dur": 9.26
+  },
+  "rd_mot_hi": {
+   "file": "rd_mot_hi.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 9.27941,
+   "corr": 0.68,
+   "dur": 9.38
+  },
+  "rd_tyre_lo": {
+   "file": "rd_tyre_lo.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 9.27136,
+   "corr": 0.598,
+   "dur": 9.37
+  },
+  "rd_tyre_mid": {
+   "file": "rd_tyre_mid.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 9.30374,
+   "corr": 0.666,
+   "dur": 9.4
+  },
+  "rd_tyre_hi": {
+   "file": "rd_tyre_hi.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 9.07116,
+   "corr": 0.579,
+   "dur": 9.17
+  },
+  "rd_wind": {
+   "file": "rd_wind.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 11.36757,
+   "corr": 0.448,
+   "dur": 11.47
+  },
+  "rd_avas": {
+   "file": "rd_avas.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 9.07098,
+   "corr": 0.647,
+   "dur": 9.17
+  },
+  "rd_regen": {
+   "file": "rd_regen.mp3",
+   "dur": 2.48
+  },
+  "rd_regen_1": {
+   "file": "rd_regen_1.mp3",
+   "dur": 2.4
+  },
+  "rd_bump": {
+   "file": "rd_bump.mp3",
+   "dur": 0.35
+  },
+  "rd_bump_1": {
+   "file": "rd_bump_1.mp3",
+   "dur": 0.31
+  },
+  "rd_bump_2": {
+   "file": "rd_bump_2.mp3",
+   "dur": 0.36
+  },
+  "rd_fan": {
+   "file": "rd_fan.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 8.92372,
+   "corr": 0.204,
+   "dur": 9.02
+  },
+  "rd_thrust": {
+   "file": "rd_thrust.mp3",
+   "loopStart": 0.1,
+   "loopEnd": 6.94492,
+   "corr": 0.135,
+   "dur": 7.04
+  },
+  "rd_thrust_start": {
+   "file": "rd_thrust_start.mp3",
+   "dur": 0.31
+  },
+  "rd_thrust_start_1": {
+   "file": "rd_thrust_start_1.mp3",
+   "dur": 1.2
+  },
+  "rd_land": {
+   "file": "rd_land.mp3",
+   "dur": 1.0
+  },
+  "rd_land_1": {
+   "file": "rd_land_1.mp3",
+   "dur": 0.66
+  }
+ },
+ "music": {
+  "title": {
+   "file": "title.mp3",
+   "dur": 90.0,
+   "style": "title",
+   "name": "Fog Lights",
+   "bpm": 100,
+   "energy": "cruise",
+   "take": "m_title_1.mp3"
+  },
+  "track_1": {
+   "file": "track_1.mp3",
+   "dur": 165.0,
+   "style": "e_horizon",
+   "name": "Golden Gate Horizon",
+   "bpm": 124,
+   "energy": "cruise",
+   "take": "m_e_horizon_1.mp3"
+  },
+  "track_2": {
+   "file": "track_2.mp3",
+   "dur": 165.0,
+   "style": "e_bayline",
+   "name": "Bayline",
+   "bpm": 125,
+   "energy": "cruise",
+   "take": "m_e_bayline_0.mp3"
+  },
+  "track_3": {
+   "file": "track_3.mp3",
+   "dur": 165.0,
+   "style": "e_neonrun",
+   "name": "Neon Run",
+   "bpm": 126,
+   "energy": "drive",
+   "take": "m_e_neonrun_1.mp3"
+  },
+  "track_4": {
+   "file": "track_4.mp3",
+   "dur": 165.0,
+   "style": "e_voltage",
+   "name": "Voltage",
+   "bpm": 128,
+   "energy": "drive",
+   "take": "m_e_voltage_1.mp3"
+  },
+  "track_5": {
+   "file": "track_5.mp3",
+   "dur": 165.0,
+   "style": "e_skyline",
+   "name": "Skyline Rush",
+   "bpm": 128,
+   "energy": "drive",
+   "take": "m_e_skyline_0.mp3"
+  },
+  "track_6": {
+   "file": "track_6.mp3",
+   "dur": 145.1,
+   "style": "e_redline",
+   "name": "Redline",
+   "bpm": 128,
+   "energy": "high",
+   "take": "m_e_redline_0.mp3"
+  },
+  "track_7": {
+   "file": "track_7.mp3",
+   "dur": 165.0,
+   "style": "e_overdrive",
+   "name": "Overdrive",
+   "bpm": 129,
+   "energy": "high",
+   "take": "m_e_overdrive_1.mp3"
+  }
+ }
+}

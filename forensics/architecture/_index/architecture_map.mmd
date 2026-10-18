@@ -1,0 +1,5 @@
+graph LR
+  User((User Browser)) -->|Origin| Host[teleoperator.mindblown.ai]
+  Host -->|Depends| mindblown_ai[mindblown.ai]
+  Host -->|Depends| api_mindblown_ai[api.mindblown.ai]
+  Host -->|Depends| mindblown-prod-public_s3_us-east-1_amazonaws_com[mindblown-prod-public.s3.us-east-1.amazonaws.com]
