@@ -29,7 +29,7 @@ jobs:
       - name: Prepare web distribution & Sync iOS
         run: npm run sync:ios
 
-      - name: Build iOS Application (Unsigned / Sideload Ready)
+      - name: Build iOS Application (Ad-Hoc Signed / Sideload Ready)
         run: |
           xcodebuild \
             -project ios/App/App.xcodeproj \
@@ -37,16 +37,21 @@ jobs:
             -configuration Release \
             -destination "generic/platform=iOS" \
             -derivedDataPath ios/App/DerivedData \
-            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGN_IDENTITY="-" \
             CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_ALLOWED=YES \
             build
 
-      - name: Package IPA
+      - name: Package & Sign IPA
         run: |
-          mkdir -p Payload
           APP_PATH=$(find ios/App/DerivedData -name "App.app" -type d | head -n 1)
           echo "Found compiled app at: $APP_PATH"
+          if [ -d "$APP_PATH/Frameworks" ]; then
+            find "$APP_PATH/Frameworks" -name "*.framework" -type d -exec codesign --force --deep --sign - {} \; || true
+          fi
+          codesign --force --deep --sign - "$APP_PATH"
+          codesign -vvv --deep --strict "$APP_PATH"
+          mkdir -p Payload
           cp -r "$APP_PATH" Payload/
           zip -r CyberDrift-SF-Overdrive.ipa Payload
           ls -lh CyberDrift-SF-Overdrive.ipa
